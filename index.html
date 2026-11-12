@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reaktor · Real Premium Drink</title>
+  <meta name="description" content="Reaktor, bebida energizante premium con vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="#" class="logo" aria-label="Reaktor inicio"><span>re</span>aktor</a>
+    <nav class="nav-links">
+      <a href="#comprar">Comprar</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#donde-comprar">Dónde comprar</a>
+      <a href="#comercios">Comercios</a>
+    </nav>
+    <div class="nav-actions">
+    <a href="#comercios" class="dist-btn"><span class="long">Quiero ser distribuidor</span><span class="short">Distribuidor</span></a>
+    <button class="cart-btn" id="cartOpen" aria-label="Abrir carrito">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    </div>
+  </header>
+
+  <!-- SCROLLYTELLING HERO -->
+  <section class="hero" id="hero">
+    <div class="stage">
+      <canvas id="seq" aria-label="Animación Reaktor: push your limits"></canvas>
+      <div class="stage-shade" id="shade"></div>
+
+      <div class="loader" id="loader">
+        <div class="loader-bar"><i id="loaderFill"></i></div>
+        <span>Cargando energía…</span>
+      </div>
+
+      <div class="scroll-hint" id="hint">
+        <span>Scrolleá</span>
+        <i></i>
+      </div>
+
+      <div class="progress" aria-hidden="true"><i id="progressFill"></i></div>
+
+      <!-- PRODUCT REVEAL (aparece cuando termina el video) -->
+      <div class="reveal" id="comprar">
+
+        <aside class="buy" id="buyPanel">
+          <p class="eyebrow">Real Premium Drink</p>
+          <h1 class="buy-title"><span>re</span>aktor <small>350 ml</small></h1>
+
+          <div class="price-row">
+            <span class="price" id="price">Precio</span>
+            <span class="price-unit" id="priceUnit">a definir</span>
+          </div>
+
+          <fieldset class="packs">
+            <legend>Presentación</legend>
+            <label><input type="radio" name="pack" value="1" checked><span><b>x1</b><em>1 unidad</em></span></label>
+            <label><input type="radio" name="pack" value="6"><span><b>x6</b><em>6 unidades</em></span></label>
+            <label><input type="radio" name="pack" value="12"><span><b>x12</b><em>12 unidades</em></span></label>
+          </fieldset>
+
+          <div class="add-row">
+            <div class="qty">
+              <button type="button" id="qtyMinus" aria-label="Restar">−</button>
+              <output id="qty">1</output>
+              <button type="button" id="qtyPlus" aria-label="Sumar">+</button>
+            </div>
+            <button class="add-btn" id="addBtn" type="button">Agregar al carrito</button>
+          </div>
+          <p class="ship">Envío a domicilio · Retiro en tienda</p>
+
+          <dl class="specs" id="ficha-mini">
+            <div><dt>Contenido neto</dt><dd>350 ml</dd></div>
+            <div><dt>Vitaminas</dt><dd>C · B3 · B5 · B6 · B12</dd></div>
+            <div><dt>Activos</dt><dd>Taurina · Inositol · Cafeína</dd></div>
+          </dl>
+        </aside>
+        <div class="bottle-wrap" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIFURCADOR: dos audiencias -->
+  <section class="split" id="para-quien" aria-labelledby="splitTitle">
+    <p class="eyebrow">Elegí tu camino</p>
+    <h2 id="splitTitle">¿Para vos o para tu negocio?</h2>
+    <div class="split-grid">
+      <article class="path path-consumer" data-audience="consumer">
+        <span class="path-tag">Consumidor</span>
+        <h3>Para vos</h3>
+        <p>Energía premium para entrenar, estudiar o trabajar. Pedila online o encontrala cerca tuyo.</p>
+        <div class="path-ctas">
+          <a href="#comprar" class="btn btn-dark">Comprar online</a>
+          <a href="#donde-comprar" class="btn btn-ghost-dark">Dónde comprar</a>
+        </div>
+      </article>
+      <article class="path path-business" data-audience="business">
+        <span class="path-tag">Comercio</span>
+        <h3>Para tu negocio</h3>
+        <p>Vendé Reaktor en tu tienda, micromercado, gimnasio o kiosco. Precio mayorista y pedido desde el celular.</p>
+        <div class="path-ctas">
+          <a href="#comercios" class="btn btn-yellow">Quiero ser distribuidor</a>
+          <a href="#faq" class="btn btn-ghost" data-faq-tab="business">Preguntas frecuentes</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="benefits" id="beneficios">
+    <div class="benefits-head">
+      <p class="eyebrow dark">Lo que hay adentro</p>
+      <h2>Energía con<br>fórmula premium</h2>
+    </div>
+    <div class="benefit-grid">
+      <article class="benefit">
+        <div class="badge"><svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="5"/><path d="M16 18h16l-2 13h-3l-1 13h-4l-1-13h-3z"/></svg></div>
+        <h3>Vitaminas C, B3, B5, B6 y B12</h3>
+        <p>Ayudan a un óptimo desarrollo del organismo.</p>
+      </article>
+      <article class="benefit">
+        <div class="badge"><svg viewBox="0 0 48 48"><path d="M24 10c-3-3-9-3-11 1-4 0-6 4-4 7-3 2-3 7 1 9 0 4 4 6 7 5 2 3 5 3 7 1 2 2 5 2 7-1 3 1 7-1 7-5 4-2 4-7 1-9 2-3 0-7-4-7-2-4-8-4-11-1z"/><path d="M24 10v26" stroke="#141414" stroke-width="2" fill="none"/></svg></div>
+        <h3>Inositol</h3>
+        <p>Ayuda a la nutrición del cerebro.</p>
+      </article>
+      <article class="benefit">
+        <div class="badge"><svg viewBox="0 0 48 48"><path d="M10 34c0-8 4-16 10-20l4-6 6 2-3 6c4 0 8 3 10 7 3 6 0 13-7 13H16c-3 0-6-1-6-2z"/></svg></div>
+        <h3>Taurina</h3>
+        <p>Favorece el rendimiento.</p>
+      </article>
+      <article class="benefit">
+        <div class="badge"><svg viewBox="0 0 48 48"><path d="M4 24c5-8 12-13 20-13s15 5 20 13c-5 8-12 13-20 13S9 32 4 24z"/><circle cx="24" cy="24" r="7" fill="#141414"/></svg></div>
+        <h3>Cafeína</h3>
+        <p>Agudiza tu percepción y concentración.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- DÓNDE COMPRAR -->
+  <section class="where" id="donde-comprar" data-audience="consumer">
+    <div class="where-inner">
+      <div class="where-head">
+        <p class="eyebrow dark">Dónde comprar</p>
+        <h2>Encontrá Reaktor<br>cerca tuyo</h2>
+        <p class="where-copy">Elegí tu provincia y mirá los puntos de venta. ¿No hay uno cerca? Pedila online.</p>
+      </div>
+      <div class="where-tool">
+        <div class="where-search">
+          <label for="cityFilter" class="sr-only">Provincia</label>
+          <select id="cityFilter">
+            <option value="">Todas las provincias</option>
+            <optgroup label="NOA">
+              <option>Jujuy</option><option>Salta</option><option>Tucumán</option>
+              <option>Catamarca</option><option>La Rioja</option><option>Santiago del Estero</option>
+            </optgroup>
+            <optgroup label="NEA">
+              <option>Formosa</option><option>Chaco</option><option>Corrientes</option><option>Misiones</option>
+            </optgroup>
+          </select>
+          <input id="storeSearch" type="search" placeholder="Buscá por localidad o comercio" aria-label="Buscar por localidad o comercio">
+        </div>
+        <ul class="store-list" id="storeList" aria-live="polite"></ul>
+        <div class="store-empty" id="storeEmpty" hidden>
+          <p><b>Todavía no hay puntos de venta en esta zona.</b></p>
+          <div class="store-empty-ctas">
+            <a href="#comprar" class="btn btn-dark">Pedila online</a>
+            <a href="#comercios" class="btn btn-ghost-dark">¿Tenés un comercio? Sumate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMERCIOS (B2B) -->
+  <section class="biz" id="comercios" data-audience="business">
+    <div class="biz-inner">
+      <div class="biz-head">
+        <p class="eyebrow">Para comercios</p>
+        <h2>Vendé Reaktor<br>en tu negocio</h2>
+        <p class="biz-copy">Tiendas de barrio, micromercados, kioscos, gimnasios, restaurantes, cafeterías y revendedores independientes.</p>
+      </div>
+
+      <div class="biz-benefits">
+        <article><span class="num">01</span><h3>Precio mayorista</h3><p>Lista de precios exclusiva para comercios.</p></article>
+        <article><span class="num">02</span><h3>Pedí desde el celular</h3><p>Hacé tu pedido en minutos, cuando quieras, y repetilo con un clic.</p></article>
+        <article><span class="num">03</span><h3>Entrega en tu local</h3><p>Recibí el pedido en tu comercio dentro de las zonas habilitadas.</p></article>
+      </div>
+
+      <h3 class="biz-sub">Cómo funciona</h3>
+      <ol class="steps">
+        <li><span>1</span><div><b>Nos escribís</b><p>Por WhatsApp, con tu provincia, localidad y tipo de negocio.</p></div></li>
+        <li><span>2</span><div><b>Pedís</b><p>Accedés a precios mayoristas y hacés tu primer pedido.</p></div></li>
+      </ol>
+
+      <h3 class="biz-sub">Condiciones</h3>
+      <dl class="conds">
+        <div><dt>Pedido mínimo</dt><dd class="tbd">A definir</dd></div>
+        <div><dt>Zonas de entrega</dt><dd class="tbd">A definir</dd></div>
+        <div><dt>Medios de pago</dt><dd class="tbd">Contra entrega · QR · Transferencia (a confirmar)</dd></div>
+        <div><dt>Facturación</dt><dd class="tbd">A definir</dd></div>
+      </dl>
+
+      <div class="biz-cta">
+        <a href="#" class="btn btn-yellow wa-link" data-wa="business">Quiero ser distribuidor</a>
+        <span>Te respondemos por WhatsApp.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES -->
+  <section class="faq" id="faq" data-audience="consumer">
+    <div class="faq-inner">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2>¿Dudas?</h2>
+      <div class="tabs" role="tablist" aria-label="Tipo de pregunta">
+        <button role="tab" id="tabConsumer" aria-controls="faqConsumer" aria-selected="true">Consumidor</button>
+        <button role="tab" id="tabBusiness" aria-controls="faqBusiness" aria-selected="false" tabindex="-1">Comercio</button>
+      </div>
+      <div class="faq-panel" id="faqConsumer" role="tabpanel" aria-labelledby="tabConsumer" data-audience="consumer">
+        <details><summary>¿Qué contiene Reaktor?</summary><p>Vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína, en una botella de 350 ml.</p></details>
+        <details><summary>¿Cuánta cafeína tiene por botella?</summary><p class="tbd">Completar con el dato del rótulo (mg de cafeína por 350 ml).</p></details>
+        <details><summary>¿Quiénes no deberían tomarla?</summary><p>No se recomienda para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p></details>
+        <details><summary>¿Hacen envíos?</summary><p>Sí: envío a domicilio en las provincias del norte habilitadas y retiro en tienda. <span class="tbd">Localidades a confirmar.</span></p></details>
+        <details><summary>¿Dónde la consigo si no compro online?</summary><p>En los puntos de venta de <a href="#donde-comprar">Dónde comprar</a>.</p></details>
+      </div>
+      <div class="faq-panel" id="faqBusiness" role="tabpanel" aria-labelledby="tabBusiness" data-audience="business" hidden>
+        <details><summary>¿Quién puede ser distribuidor?</summary><p>Comercios (tiendas, micromercados, kioscos, gimnasios, restaurantes, cafeterías) y revendedores independientes.</p></details>
+        <details><summary>¿Cuánto tardan en contactarme?</summary><p class="tbd">Plazo a definir por el equipo comercial.</p></details>
+        <details><summary>¿Cuál es el pedido mínimo?</summary><p class="tbd">A definir (por cantidad de cajas o monto).</p></details>
+        <details><summary>¿Cómo pago mis pedidos?</summary><p class="tbd">Contra entrega, QR o transferencia (a confirmar).</p></details>
+        <details><summary>¿Entregan en mi zona?</summary><p>Escribinos por WhatsApp con tu provincia y localidad y te confirmamos cobertura. <span class="tbd">Zonas a definir.</span></p></details>
+        <details><summary>¿Emiten factura?</summary><p class="tbd">A definir.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="logo"><span>re</span>aktor</a>
+        <p class="footer-tag">Real Premium Drink · Push your limits</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram de Reaktor" class="soc">IG</a>
+          <a href="#" aria-label="TikTok de Reaktor" class="soc">TT</a>
+          <a href="#" aria-label="Facebook de Reaktor" class="soc">FB</a>
+        </div>
+      </div>
+      <div>
+        <h4>Producto</h4>
+        <a href="#comprar">Comprar</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#donde-comprar">Dónde comprar</a>
+      </div>
+      <div>
+        <h4>Comercios</h4>
+        <a href="#comercios">Ser distribuidor</a>
+        <a href="#faq" data-faq-tab="business">Preguntas frecuentes</a>
+        <a href="#" class="wa-link" data-wa="business">WhatsApp comercial</a>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <p class="tbd">Razón social</p>
+        <p class="tbd">CUIT</p>
+        <p class="tbd">Dirección</p>
+      </div>
+    </div>
+    <p class="footer-warning">Contiene cafeína. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
+    <p class="footer-license">Elaborado bajo licencia de The Monarch Beverage Company, Atlanta, GA, USA.</p>
+    <div class="footer-bottom">
+      <span>© 2026 Reaktor</span>
+      <span><a href="#">Términos</a> · <a href="#">Privacidad</a> · <a href="#">Términos comerciales</a></span>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <span class="wa-bubble" id="waBubble" aria-hidden="true">¿Cómo te ayudamos?</span>
+  <a href="#" class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="WhatsApp: ¿Cómo te ayudamos?" title="¿Cómo te ayudamos?">
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.5 6.5 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.4z"/></svg>
+    
+  </a>
+
+  <!-- CART DRAWER -->
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Carrito" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Tu carrito</h2>
+      <button class="icon-btn" id="cartClose" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <ul class="cart-items" id="cartItems"></ul>
+    <div class="cart-empty" id="cartEmpty">Tu carrito está vacío.<br><a href="#comprar" id="emptyShop">Ir a comprar</a></div>
+    <div class="drawer-foot">
+      <div class="ship-meter"><i id="shipFill"></i></div>
+      <p class="ship-msg" id="shipMsg"></p>
+      <div class="subtotal"><span>Subtotal</span><b id="subtotal">—</b></div>
+      <button class="add-btn full" id="checkout" type="button">Finalizar compra</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
