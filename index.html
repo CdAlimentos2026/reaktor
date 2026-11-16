@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 
@@ -253,7 +253,7 @@
       <div class="biz-head">
         <p class="eyebrow">Para comercios</p>
         <h2>Vendé Reaktor<br>en tu negocio</h2>
-        <p class="biz-copy">Tiendas de barrio, micromercados, kioscos, gimnasios, restaurantes, cafeterías y revendedores independientes.</p>
+        <p class="biz-copy">Tiendas de barrio, micromercados, kioscos, gimnasios, restaurantes, cafeterías y revendedores independientes. Atendemos Argentina y toda Latinoamérica.</p>
       </div>
 
       <div class="biz-benefits">
@@ -264,7 +264,7 @@
 
       <h3 class="biz-sub">Cómo funciona</h3>
       <ol class="steps">
-        <li><span>1</span><div><b>Nos escribís</b><p>Por WhatsApp, con tu provincia, localidad y tipo de negocio.</p></div></li>
+        <li><span>1</span><div><b>Dejás tus datos</b><p>Elegís tu país, completás el formulario y te contactamos por WhatsApp.</p></div></li>
         <li><span>2</span><div><b>Pedís</b><p>Accedés a precios mayoristas y hacés tu primer pedido.</p></div></li>
       </ol>
 
@@ -276,9 +276,65 @@
         <div><dt>Facturación</dt><dd class="tbd">A definir</dd></div>
       </dl>
 
-      <div class="biz-cta">
-        <a href="#" class="btn btn-yellow wa-link" data-wa="business">Quiero ser distribuidor</a>
-        <span>Te respondemos por WhatsApp.</span>
+      <div class="biz-join" id="sumate">
+        <h3 class="biz-sub">Quiero ser distribuidor · ¿Desde dónde nos escribís?</h3>
+        <div class="tabs join-tabs" role="tablist" aria-label="País">
+          <button role="tab" id="joinTabAr" aria-controls="joinAr" aria-selected="false">Soy de Argentina</button>
+          <button role="tab" id="joinTabLat" aria-controls="joinLat" aria-selected="false">Soy de otro país</button>
+        </div>
+
+        <form class="join-form" id="joinAr" role="tabpanel" aria-labelledby="joinTabAr" data-country="Argentina" hidden>
+          <div class="join-grid">
+            <div class="seg join-seg" role="radiogroup" aria-label="Tipo de cliente">
+              <label><input type="radio" name="tipo" value="Comercio" checked><span>Comercio</span></label>
+              <label><input type="radio" name="tipo" value="Revendedor independiente"><span>Revendedor independiente</span></label>
+            </div>
+            <label>Nombre y apellido<input name="nombre" required autocomplete="name"></label>
+            <label>Nombre del negocio<input name="negocio" autocomplete="organization"></label>
+            <label>Provincia
+              <select name="provincia" required>
+                <option value="">Elegí tu provincia</option>
+                <optgroup label="NOA"><option>Jujuy</option><option>Salta</option><option>Tucumán</option><option>Catamarca</option><option>La Rioja</option><option>Santiago del Estero</option></optgroup>
+                <optgroup label="NEA"><option>Formosa</option><option>Chaco</option><option>Corrientes</option><option>Misiones</option></optgroup>
+                <option>Otra provincia</option>
+              </select>
+            </label>
+            <label>Localidad<input name="localidad" required autocomplete="address-level2"></label>
+            <label>Rubro
+              <select name="rubro">
+                <option value="">Elegí el rubro</option>
+                <option>Tienda de barrio</option><option>Micromercado</option><option>Kiosco</option><option>Gimnasio</option>
+                <option>Restaurante o cafetería</option><option>Distribuidora</option><option>Otro</option>
+              </select>
+            </label>
+            <label>WhatsApp
+              <span class="tel"><em>+54 9</em><input name="whatsapp" required type="tel" inputmode="numeric" pattern="[0-9 ]{10,13}" placeholder="387 1234567" title="Código de área sin 0 y número sin 15"></span>
+            </label>
+          </div>
+          <button class="add-btn" type="submit">Enviar mis datos</button>
+          <p class="join-note">Te contactamos por WhatsApp para darte precios y condiciones.</p>
+        </form>
+
+        <form class="join-form" id="joinLat" role="tabpanel" aria-labelledby="joinTabLat" hidden>
+          <div class="join-grid">
+            <label>País
+              <select name="pais" required>
+                <option value="">Elegí tu país</option>
+                <option>Bolivia</option><option>Brasil</option><option>Chile</option><option>Colombia</option>
+                <option>Ecuador</option><option>México</option><option>Paraguay</option><option>Perú</option>
+                <option>Uruguay</option><option>Venezuela</option><option>Otro</option>
+              </select>
+            </label>
+            <label>Ciudad<input name="ciudad" required autocomplete="address-level2"></label>
+            <label>Nombre y apellido<input name="nombre" required autocomplete="name"></label>
+            <label>Nombre del negocio<input name="negocio" autocomplete="organization"></label>
+            <label>WhatsApp (con código de país)<input name="whatsapp" required type="tel" placeholder="+591 7XXXXXXX"></label>
+            <label>Email<input name="email" type="email" autocomplete="email"></label>
+            <label class="join-wide">Contanos sobre tu negocio<textarea name="mensaje" rows="3" placeholder="Qué tipo de negocio tenés y qué volumen manejás"></textarea></label>
+          </div>
+          <button class="add-btn" type="submit">Enviar mis datos</button>
+          <p class="join-note">Te conectamos con el equipo de Reaktor de tu país.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -473,6 +529,6 @@
   </div>
 
 
-  <script src="app.js?v=14"></script>
+  <script src="app.js?v=15"></script>
 </body>
 </html>

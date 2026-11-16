@@ -754,5 +754,57 @@
     toast('¡Gracias! Te respondemos a la brevedad.');
   });
 
+  /* =========================================================
+     QUIERO SER DISTRIBUIDOR: "Soy de Argentina" / "Soy de otro país"
+     Al elegir, se abre el formulario; al enviar, llega por WhatsApp.
+     ========================================================= */
+  const joinTabs = { ar: $('#joinTabAr'), lat: $('#joinTabLat') };
+  const joinForms = { ar: $('#joinAr'), lat: $('#joinLat') };
+  function selectJoin(k) {
+    Object.keys(joinTabs).forEach((key) => {
+      const on = key === k;
+      joinTabs[key].setAttribute('aria-selected', on);
+      joinForms[key].hidden = !on;
+    });
+    const first = joinForms[k].querySelector('input:not([type=radio]), select');
+    if (first) setTimeout(() => first.focus({ preventScroll: true }), 50);
+  }
+  joinTabs.ar.addEventListener('click', () => selectJoin('ar'));
+  joinTabs.lat.addEventListener('click', () => selectJoin('lat'));
+
+  function sendJoin(form, lines) {
+    if (!form.reportValidity()) return;
+    const txt = lines.filter(Boolean).join(String.fromCharCode(10));
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
+    form.reset();
+    toast('¡Gracias! Te contactamos a la brevedad.');
+  }
+  joinForms.ar.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(joinForms.ar);
+    sendJoin(joinForms.ar, [
+      'Hola Reaktor, quiero ser distribuidor (Argentina).',
+      `Tipo: ${d.get('tipo')}`,
+      `Nombre: ${d.get('nombre')}`,
+      d.get('negocio') && `Negocio: ${d.get('negocio')}`,
+      `Provincia: ${d.get('provincia')} · Localidad: ${d.get('localidad')}`,
+      d.get('rubro') && `Rubro: ${d.get('rubro')}`,
+      `WhatsApp: +54 9 ${d.get('whatsapp')}`,
+    ]);
+  });
+  joinForms.lat.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(joinForms.lat);
+    sendJoin(joinForms.lat, [
+      `Hola Reaktor, quiero ser distribuidor en ${d.get('pais')}.`,
+      `Ciudad: ${d.get('ciudad')}`,
+      `Nombre: ${d.get('nombre')}`,
+      d.get('negocio') && `Negocio: ${d.get('negocio')}`,
+      `WhatsApp: ${d.get('whatsapp')}`,
+      d.get('email') && `Email: ${d.get('email')}`,
+      d.get('mensaje') && `Mensaje: ${d.get('mensaje')}`,
+    ]);
+  });
+
   renderCart();
 })();

@@ -934,3 +934,34 @@ body.modal-open { overflow: hidden; }
 .store-map .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.95) saturate(.35); }
 .store-map .leaflet-control-attribution { background: rgba(0,0,0,.6); color: #bbb; }
 .store-map .leaflet-control-attribution a { color: var(--yellow); }
+
+/* =========================================================
+   QUIERO SER DISTRIBUIDOR: Argentina / otro país
+   ========================================================= */
+.biz-join { margin-top: 44px; }
+.join-tabs { margin: 4px 0 0; }
+.join-form {
+  margin-top: 18px; background: #141414; border: 1px solid rgba(243,198,74,.3); border-radius: var(--radius);
+  padding: 24px; animation: stepIn .45s ease both;
+}
+.join-form[hidden] { display: none; }
+.join-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 18px; }
+.join-form label { display: grid; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+.join-form input:not([type=radio]), .join-form select, .join-form textarea {
+  height: 48px; border-radius: 12px; border: 2px solid rgba(255,255,255,.2); background: #1b1b1b; color: #fff;
+  padding: 0 14px; font: 500 15px var(--body); letter-spacing: 0; text-transform: none; width: 100%; min-width: 0;
+}
+.join-form textarea { height: auto; padding: 12px 14px; }
+.join-form :focus { outline: none; border-color: var(--yellow); }
+.join-form .tel input { border-radius: 0 12px 12px 0; }
+.join-seg, .join-wide { grid-column: 1 / -1; }
+.join-seg label { display: block; text-transform: none; letter-spacing: 0; }
+.join-form .add-btn { padding: 0 34px; flex: none; }
+.join-note { margin-top: 10px; font-size: 13px; color: rgba(255,255,255,.7); }
+@media (max-width: 820px) {
+  .join-grid { grid-template-columns: 1fr; }
+  .join-form { padding: 18px; }
+  .join-form .add-btn { width: 100%; }
+  .join-tabs { display: flex; }
+  .join-tabs button { flex: 1; padding: 0 10px; font-size: 12px; }
+}
