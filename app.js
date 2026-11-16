@@ -183,22 +183,47 @@
     draw(shownFrame); lastDrawn = shownFrame; lastHdAlpha = hdAlpha;
   }
 
+  // [cuadro, foco horizontal 0..1] para pantallas angostas
+  const CAM = [[0, 0.73], [10, 0.73], [20, 0.27], [40, 0.2], [70, 0.27], [90, 0.3], [112, 0.52], [140, 0.7], [180, 0.82], [FRAME_COUNT - 1, 0.86]];
+  function camFollow(i) {
+    for (let n = 1; n < CAM.length; n++) {
+      if (i <= CAM[n][0]) {
+        const [a, fa] = CAM[n - 1], [b, fb] = CAM[n];
+        const t = clamp((i - a) / (b - a)); const e = t * t * (3 - 2 * t);
+        return fa + (fb - fa) * e;
+      }
+    }
+    return CAM[CAM.length - 1][1];
+  }
+
   function draw(i) {
     const img = video;
     if (!img.videoWidth) return;
     const cw = canvas.width, ch = canvas.height;
     const iw = img.videoWidth, ih = img.videoHeight;
-    const scale = Math.max(cw / iw, ch / ih);
+    const cover = Math.max(cw / iw, ch / ih);
+    const vis0 = cw / (iw * cover);
+    const k0 = clamp((vis0 - 0.3) / 0.45);
+    // celular: al inicio se aleja un poco para que entre el titular completo,
+    // y se acerca a la acción cuando el puño rompe el muro
+    const zFit = Math.min(1, vis0 / 0.46);
+    const zt = clamp((i - 10) / 12), ze = zt * zt * (3 - 2 * zt);
+    const zMob = zFit + (1 - zFit) * ze;
+    const scale = cover * (1 - (1 - zMob) * (1 - k0));
     const dw = iw * scale, dh = ih * scale;
     // en pantallas angostas seguimos la acción: texto/hombre → botella
     // intro: arranca sobre el muro (izquierda); después sigue al hombre, el texto y la botella
     // cuanto menos ancho se ve (celular), más se acerca al muro; en escritorio queda centrado
-    const vis = cw / dw;                                   // fracción visible del ancho
-    const k = clamp((vis - 0.3) / 0.45);                   // 0 = celular · 1 = pantalla ancha
-    const f0 = 0.22 + 0.28 * k, f1 = 0.35 + 0.2 * k;       // foco al inicio y al empalmar
-    const focusX = i < INTRO_FRAMES
-      ? f0 + (f1 - f0) * (i / INTRO_FRAMES)
-      : f1 + (0.85 - f1) * Math.pow((i - INTRO_FRAMES) / (FRAME_COUNT - 1 - INTRO_FRAMES), 1.5);
+    const k = k0;                                          // 0 = celular · 1 = pantalla ancha
+    // pantalla ancha: encuadre casi fijo
+    const desk = i < INTRO_FRAMES
+      ? 0.5 + 0.05 * (i / INTRO_FRAMES)
+      : 0.55 + 0.3 * Math.pow((i - INTRO_FRAMES) / (FRAME_COUNT - 1 - INTRO_FRAMES), 1.5);
+    // celular: la cámara sigue la acción (titular → puño → salto → empuje → botella)
+    let focusX = desk * k + camFollow(i) * (1 - k);
+    // al inicio, que el titular entre completo (borde derecho del texto ≈ 95% del cuadro)
+    const need = 0.955 - (cw / dw) / 2;
+    focusX += (Math.max(focusX, need) - focusX) * (1 - ze);
     const dx = Math.min(0, Math.max(cw - dw, cw / 2 - dw * focusX));
     const dy = (ch - dh) / 2;
     ctx.imageSmoothingEnabled = true;
@@ -206,6 +231,10 @@
     ctx.fillStyle = '#f6d502';
     ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(img, dx, dy, dw, dh);
+    if (dy > 0.5) { // bandas arriba/abajo: se estira el borde del video (fondo amarillo liso)
+      ctx.drawImage(img, 0, 0, iw, 2, dx, 0, dw, dy + 1);
+      ctx.drawImage(img, 0, ih - 2, iw, 2, dx, dy + dh - 1, dw, ch - dy - dh + 1);
+    }
     if (i === FRAME_COUNT - 1 && hdAlpha > 0 && hdBottle.complete && hdBottle.naturalWidth) {
       const k = dw / 1280;
       ctx.globalAlpha = hdAlpha;
@@ -577,10 +606,16 @@
   document.querySelectorAll('section[data-audience]').forEach((el) => audIO.observe(el));
   // aparece cuando el visitante ya pasó el hero (no tapa la escena del video)
   const waToggle = () => {
-    const on = window.scrollY > heroEnd() - 4;
+    // aparece recién al dejar atrás el hero (no tapa el panel de compra)
+    const on = window.scrollY > heroEnd() + window.innerHeight * 0.5;
     waFloat.classList.toggle('show', on);
-    waBubble.classList.toggle('show', on);
+    waBubble.classList.toggle('show', on && !bubbleGone);
+    // en celular el globito se muestra unos segundos y queda solo el logo
+    if (on && !bubbleTimer && window.matchMedia('(max-width: 820px)').matches) {
+      bubbleTimer = setTimeout(() => { bubbleGone = true; waBubble.classList.remove('show'); }, 5000);
+    }
   };
+  let bubbleGone = false, bubbleTimer = 0;
   window.addEventListener('scroll', waToggle, { passive: true });
   waToggle();
 
