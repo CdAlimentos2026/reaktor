@@ -510,14 +510,22 @@
       const top = el.offsetTop, bottom = top + el.offsetHeight;
       if (top <= y + 1 && bottom >= y + vh - 1) { settledY = y; return; }
     }
-    const targets = [end, ...snapSections().map((el) => el.offsetTop), maxY].sort((p, q) => p - q);
+    // además del inicio de cada sección, las secciones largas tienen una parada en su final
+    // (así no se saltea lo que hay al fondo, como el post de Instagram)
+    const stops = [];
+    snapSections().forEach((el) => {
+      stops.push(el.offsetTop);
+      if (el.offsetHeight > vh + 40) stops.push(el.offsetTop + el.offsetHeight - vh);
+    });
+    const targets = [end, ...stops, maxY].sort((p, q) => p - q);
     // si ya está justo al inicio de una sección (ej. llegó por un link del menú), queda ahí
     if (targets.some((t) => Math.abs(t - y) <= 3)) { settledY = y; return; }
     const moved = y - settledY;
     let goal = null;
     if (Math.abs(moved) > Math.min(70, vh * 0.08)) {
       // siguiente sección en la dirección del gesto
-      goal = moved > 0 ? targets.find((t) => t > y + 2) : [...targets].reverse().find((t) => t < y - 2);
+      // una parada por gesto, contando desde donde estaba (no se saltea nada)
+      goal = moved > 0 ? targets.find((t) => t > settledY + 2) : [...targets].reverse().find((t) => t < settledY - 2);
       if (goal === undefined) goal = null;
     }
     if (goal === null) { // gesto mínimo: volver a la más cercana
