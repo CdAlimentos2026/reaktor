@@ -4,14 +4,15 @@
   /* =========================================================
      CONFIG
      ========================================================= */
-  const FRAME_COUNT = 193;
+  const FRAME_COUNT = 234;
+  const INTRO_FRAMES = 58;   // muro → puño → salto → señala (antes de empalmar con el video)
   const FPS = 24;
   // Un solo archivo de video (todos los cuadros son keyframes → se puede adelantar
   // y retroceder cuadro a cuadro). 1920px en escritorio, 1280px en móvil.
-  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4' : 'hero.mp4';
+  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=2' : 'hero.mp4?v=2'; // subir ?v= cada vez que cambie el video
   const VIDEO_END = 0.84;    // % del recorrido del hero que ocupa el video
   const REVEAL_LEN = 0.16;   // % del recorrido en el que aparece el panel de compra
-  const PLAY_MS = 4200;      // duración de la reproducción automática con 1 scroll
+  const PLAY_MS = 5100;      // duración de la reproducción automática con 1 scroll
   const UNIT_PRICE = null;   // precio por unidad: completar cuando esté definido (ej. 15)
   const CURRENCY = '$';
   const FREE_SHIP = 150;
@@ -69,10 +70,10 @@
   }
 
   function doSeek() {
-    if (!videoReady || seeking) return;
+    if (!videoReady || seeking || !Number.isFinite(wantFrame)) return;
+    const dur = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : FRAME_COUNT / FPS;
     seeking = true;
     seekingFrame = wantFrame;
-    const dur = video.duration || FRAME_COUNT / FPS;
     video.currentTime = Math.min((seekingFrame + 0.5) / FPS, dur - 0.001);
   }
   video.addEventListener('seeked', () => {
@@ -148,8 +149,14 @@
     const scale = Math.max(cw / iw, ch / ih);
     const dw = iw * scale, dh = ih * scale;
     // en pantallas angostas seguimos la acción: texto/hombre → botella
-    const t = i / (FRAME_COUNT - 1);
-    const focusX = 0.58 + 0.27 * t * t;
+    // intro: arranca sobre el muro (izquierda); después sigue al hombre, el texto y la botella
+    // cuanto menos ancho se ve (celular), más se acerca al muro; en escritorio queda centrado
+    const vis = cw / dw;                                   // fracción visible del ancho
+    const k = clamp((vis - 0.3) / 0.45);                   // 0 = celular · 1 = pantalla ancha
+    const f0 = 0.22 + 0.28 * k, f1 = 0.35 + 0.2 * k;       // foco al inicio y al empalmar
+    const focusX = i < INTRO_FRAMES
+      ? f0 + (f1 - f0) * (i / INTRO_FRAMES)
+      : f1 + (0.85 - f1) * Math.pow((i - INTRO_FRAMES) / (FRAME_COUNT - 1 - INTRO_FRAMES), 1.5);
     const dx = Math.min(0, Math.max(cw - dw, cw / 2 - dw * focusX));
     const dy = (ch - dh) / 2;
     ctx.imageSmoothingEnabled = true;
@@ -167,8 +174,8 @@
 
   function readScroll() {
     const rect = hero.getBoundingClientRect();
-    const total = hero.offsetHeight - window.innerHeight;
-    heroP = clamp(-rect.top / total);
+    const total = Math.max(1, hero.offsetHeight - window.innerHeight);
+    heroP = clamp(-rect.top / total) || 0;
     target = clamp(heroP / VIDEO_END) * (FRAME_COUNT - 1);
 
     const r = clamp((heroP - VIDEO_END) / REVEAL_LEN);
