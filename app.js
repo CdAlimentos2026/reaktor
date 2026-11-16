@@ -9,7 +9,7 @@
   const FPS = 24;
   // Un solo archivo de video (todos los cuadros son keyframes → se puede adelantar
   // y retroceder cuadro a cuadro). 1920px en escritorio, 1280px en móvil.
-  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=2' : 'hero.mp4?v=2'; // subir ?v= cada vez que cambie el video
+  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=3' : 'hero.mp4?v=3'; // subir ?v= cada vez que cambie el video
   const VIDEO_END = 0.84;    // % del recorrido del hero que ocupa el video
   const REVEAL_LEN = 0.16;   // % del recorrido en el que aparece el panel de compra
   const PLAY_MS = 5100;      // duración de la reproducción automática con 1 scroll
@@ -110,6 +110,48 @@
     }
     loaded = FRAME_COUNT; onProgress();
   }
+  /* =========================================================
+     PANTALLA DE CARGA · "Recarga de poder"
+     Dura al menos 3 s y no se va hasta que el video está listo
+     (así el scroll nunca se traba). Avanza con la descarga real.
+     ========================================================= */
+  const splash = document.getElementById('splash');
+  const MIN_SPLASH = 3000, MAX_SPLASH = 20000;
+  const splashT0 = performance.now();
+  let shown = 0, splashDone = false, splashFinished = false;
+  const MSGS = [[0, 'Cargando vitaminas B'], [0.25, 'Activando taurina'], [0.5, 'Sumando inositol'], [0.75, 'Encendiendo la cafeína']];
+  function splashStep() {
+    if (!splash || splashDone) return;
+    const el = performance.now() - splashT0;
+    const ready = videoReady && hdBottle.complete;
+    const real = ready ? 1 : Math.min(0.96, loaded / FRAME_COUNT);
+    const goal = Math.min(real, el / MIN_SPLASH);
+    shown += (goal - shown) * 0.12;
+    if (goal - shown < 0.002) shown = goal;
+    splash.style.setProperty('--p', shown.toFixed(4));
+    document.getElementById('splashPct').textContent = Math.round(shown * 100);
+    const msg = shown >= 0.995 ? '¡Poder recargado!' : MSGS.filter((m) => shown >= m[0]).pop()[1];
+    const msgEl = document.getElementById('splashMsg');
+    if (msgEl.textContent !== msg) msgEl.textContent = msg;
+    if ((shown >= 0.995 && ready) || el > MAX_SPLASH) return finishSplash();
+    setTimeout(splashStep, 16);
+  }
+  function finishSplash() {
+    splashDone = true;
+    splash.style.setProperty('--p', 1);
+    document.getElementById('splashPct').textContent = 100;
+    document.getElementById('splashMsg').textContent = '¡Poder recargado!';
+    splash.classList.add('charged');
+    setTimeout(() => {
+      splash.classList.add('open');
+      document.documentElement.classList.remove('is-loading');
+      window.scrollTo(0, 0);
+      readScroll();
+      setTimeout(() => { splash.remove(); splashFinished = true; }, 1300);
+    }, 650);
+  }
+  setTimeout(splashStep, 0); // después de que se declare todo el resto
+
   // iOS: un play/pause en el primer toque "despierta" el decodificador
   const wake = () => { video.play().then(() => video.pause()).catch(() => {}); window.removeEventListener('touchstart', wake); };
   window.addEventListener('touchstart', wake, { passive: true });
@@ -243,6 +285,7 @@
   // dir: 1 abajo, -1 arriba. Devuelve true si el gesto lo manejamos nosotros.
   function intent(dir) {
     const now = performance.now();
+    if (document.documentElement.classList.contains('is-loading')) return true; // cargando: no scrollear
     if (playing || now < lockUntil) { lockUntil = Math.max(lockUntil, now + 180); return true; }
     const y = window.scrollY, end = heroEnd();
     if (dir > 0 && y < end - 2) {
