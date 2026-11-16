@@ -1058,3 +1058,24 @@ body.modal-open { overflow: hidden; }
 .formula-inner { width: 100%; max-width: 1240px; margin: 0 auto; }
 .formula-sec .tech { margin-top: 0; }
 @media (max-width: 820px) { .formula-sec { padding-top: 104px; } }
+
+/* =========================================================
+   LOGO EN LÍNEA (cada "Reaktor" del sitio usa el logo)
+   ========================================================= */
+.rk { display: inline-block; height: .78em; width: auto; vertical-align: -0.02em; margin: 0 .04em; }
+h1 .rk, h2 .rk, h3 .rk, .path h3 .rk { height: .74em; vertical-align: 0; }
+.nav-links .rk { height: 1.05em; vertical-align: -0.18em; }
+.footer-bottom .rk { height: 1.15em; vertical-align: -0.25em; }
+.cart-item h4 .rk { height: 1em; vertical-align: -0.15em; }
+/* sobre fondo amarillo, el logo va en negro (si no, el "re" amarillo desaparece) */
+.where .where-head .rk, .path-consumer .rk, .btn-yellow .rk, .add-btn .rk { filter: brightness(0); }
+
+/* =========================================================
+   TÍTULOS: más aire entre renglones (que los acentos no pisen la línea de arriba)
+   ========================================================= */
+.split h2, .where h2, .biz h2, .faq h2, .history-head h2, .tech h2, .benefits h2, .dist h2,
+.path h3, .story-hero h2, .latam h2, .splash-title, .tl-year, .form-done b {
+  line-height: 1.06;
+}
+.history-head h2, .tech h2, .split h2, .where h2, .biz h2 { padding-top: .06em; }
+.tl-card h3, .biz-benefits h3, .story-block h3 { line-height: 1.25; }

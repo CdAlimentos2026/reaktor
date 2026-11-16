@@ -422,7 +422,7 @@
         <li class="cart-item">
           <div class="thumb"><img src="bottle.webp" alt=""></div>
           <div>
-            <h4>Reaktor 350 ml</h4>
+            <h4><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> 350 ml</h4>
             <p>${PACKS[k].label} · ${money(packPrice(k))}</p>
             <div class="mini-qty">
               <button data-act="dec" data-k="${k}" aria-label="Restar">−</button>
