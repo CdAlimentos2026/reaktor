@@ -460,18 +460,6 @@
     </div>
   </section>
 
-  <!-- OTROS PAÍSES -->
-  <section class="latam" aria-labelledby="latamTitle">
-    <div class="latam-inner">
-      <div>
-        <p class="eyebrow">Reaktor en Latinoamérica</p>
-        <h2 id="latamTitle">¿Sos de otro país de Latinoamérica?</h2>
-        <p>Reaktor llega a toda la región. Contanos desde dónde nos escribís y te conectamos con el equipo de tu país.</p>
-      </div>
-      <button type="button" class="btn btn-yellow latam-open">Escribinos</button>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-grid">
@@ -496,7 +484,6 @@
         <a href="#comercios">Ser distribuidor</a>
         <a href="#faq" data-faq-tab="business">Preguntas frecuentes</a>
         <a href="#" class="wa-link" data-wa="business">WhatsApp comercial</a>
-        <a href="#" class="latam-open">Otros países de Latinoamérica</a>
       </div>
       <div>
         <h4>Empresa</h4>
@@ -598,28 +585,8 @@
     </article>
   </div>
 
-  <!-- VENTANA "OTROS PAÍSES DE LATINOAMÉRICA" -->
-  <div class="modal" id="latamModal" role="dialog" aria-modal="true" aria-labelledby="latamModalTitle" hidden>
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-card latam-card">
-      <button class="modal-close" type="button" data-close aria-label="Cerrar">✕</button>
-      <p class="eyebrow">Reaktor en Latinoamérica</p>
-      <h2 id="latamModalTitle">Escribinos desde tu país</h2>
-      <p class="latam-copy">Te conectamos con el equipo de Reaktor de tu país.</p>
-      <form id="latamForm" class="latam-form">
-        <label>País
-          <select name="pais" required data-latam></select>
-        </label>
-        <label>Ciudad / zona<input name="zona" required autocomplete="address-level2"></label>
-        <label>Nombre<input name="nombre" required autocomplete="name"></label>
-        <label>WhatsApp<span class="tel"><em data-prefix>+ ···</em><input name="whatsapp" type="tel" inputmode="numeric" placeholder="Número sin código de país"></span></label>
-        <label>Mensaje<textarea name="mensaje" rows="3" required placeholder="Quiero comprar Reaktor / Tengo un comercio / Otro"></textarea></label>
-        <button class="add-btn full" type="submit">Enviar por WhatsApp</button>
-      </form>
-    </div>
-  </div>
 
 
-  <script src="app.js?v=22"></script>
+  <script src="app.js?v=23"></script>
 </body>
 </html>

@@ -732,27 +732,12 @@
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   document.querySelectorAll('.story-open').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal('storyModal'); }));
-  document.querySelectorAll('.latam-open').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal('latamModal'); }));
   document.querySelectorAll('.modal').forEach((m) => {
     m.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeModal(m); });
     m.querySelectorAll('[data-close-go]').forEach((a) => a.addEventListener('click', () => closeModal(m)));
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal);
-  });
-
-  // Otros países: arma el mensaje y lo abre en WhatsApp (llega al equipo, que lo deriva)
-  const latamForm = $('#latamForm');
-  latamForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!latamForm.reportValidity()) return;
-    const d = new FormData(latamForm);
-    const wa = d.get('whatsapp') ? ` Mi WhatsApp: ${dialOf(latamForm)} ${d.get('whatsapp')}.` : '';
-    const txt = `Hola Reaktor, les escribo desde ${d.get('pais')} (${d.get('zona')}). Soy ${d.get('nombre')}.${wa} ${d.get('mensaje')}`;
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
-    latamForm.reset();
-    closeModal($('#latamModal'));
-    toast('¡Gracias! Te respondemos a la brevedad.');
   });
 
   /* =========================================================
