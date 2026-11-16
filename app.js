@@ -387,6 +387,10 @@
   const priceEl = $('#price');
   const priceUnit = $('#priceUnit');
   const selectedPack = () => document.querySelector('input[name="pack"]:checked').value;
+  const selectedFmt = () => { const f = document.querySelector('input[name="fmt"]:checked'); return f ? f.value : ''; };
+  // clave del carrito: "pack@formato" (ej. "6@1,5 L")
+  const packOf = (key) => String(key).split('@')[0];
+  const fmtOf = (key) => String(key).split('@')[1] || '';
 
   function renderPrice() {
     const k = selectedPack();
@@ -413,17 +417,18 @@
   const list = $('#cartItems');
 
   function renderCart() {
-    const keys = Object.keys(cart).filter((k) => cart[k] > 0 && PACKS[k]);
+    const keys = Object.keys(cart).filter((k) => cart[k] > 0 && PACKS[packOf(k)]);
     let subtotal = 0, units = 0;
     list.innerHTML = keys.map((k) => {
-      const line = packPrice(k) * cart[k];
+      const pk = packOf(k);
+      const line = packPrice(pk) * cart[k];
       subtotal += line; units += cart[k];
       return `
         <li class="cart-item">
           <div class="thumb"><img src="bottle.webp" alt=""></div>
           <div>
-            <h4><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> 350 ml</h4>
-            <p>${PACKS[k].label} · ${money(packPrice(k))}</p>
+            <h4><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> Original ${fmtOf(k)}</h4>
+            <p>${PACKS[pk].label} · ${money(packPrice(pk))}</p>
             <div class="mini-qty">
               <button data-act="dec" data-k="${k}" aria-label="Restar">−</button>
               <span>${cart[k]}</span>
@@ -471,12 +476,13 @@
   }
 
   $('#addBtn').addEventListener('click', () => {
-    const k = selectedPack();
+    const p = selectedPack();
+    const k = `${p}@${selectedFmt()}`;
     cart[k] = (cart[k] || 0) + qty;
     renderCart();
     const btn = $('#cartOpen');
     btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
-    toast(`Agregaste ${qty} × ${PACKS[k].label} al carrito`);
+    toast(`Agregaste ${qty} × ${PACKS[p].label} ${selectedFmt()} al carrito`);
     qty = 1; qtyOut.textContent = qty;
     setTimeout(openCart, 450);
   });
@@ -543,6 +549,20 @@
   }, { passive: true });
 
   /* =========================================================
+     MENÚ EN CELULAR (botón hamburguesa)
+     ========================================================= */
+  const menuBtn = $('#menuBtn');
+  function setMenu(on) {
+    document.body.classList.toggle('menu-open', on);
+    if (menuBtn) { menuBtn.setAttribute('aria-expanded', on); menuBtn.setAttribute('aria-label', on ? 'Cerrar menú' : 'Abrir menú'); }
+  }
+  if (menuBtn) menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', (e) => { if (!e.target.closest('.nav')) setMenu(false); });
+  // "Comprar online" (#comprar) también cierra el menú
+  document.querySelectorAll('a[href="#comprar"]').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+  /* =========================================================
      LINKS INTERNOS (scroll suave a secciones fuera del hero)
      ========================================================= */
   document.querySelectorAll('a[href^="#"]:not([href="#comprar"]):not([href="#"])').forEach((a) => {
@@ -551,7 +571,9 @@
       if (!el) return;
       e.preventDefault();
       closeCart();
+      setMenu(false);
       if (a.dataset.faqTab) selectFaq(a.dataset.faqTab);
+      if (a.dataset.join) selectJoin(a.dataset.join);
       const goal = el.offsetTop;
       settledY = goal; snapUntil = performance.now() + 1600; // que el snap no lo interrumpa
       window.scrollTo({ top: goal, behavior: 'smooth' });
@@ -752,10 +774,11 @@
      QUIERO SER DISTRIBUIDOR: "Soy de Argentina" / "Soy de otro país"
      Al elegir, se abre el formulario; al enviar, llega por WhatsApp.
      ========================================================= */
-  const joinTabs = { ar: $('#joinTabAr'), lat: $('#joinTabLat') };
-  const joinForms = { ar: $('#joinAr'), lat: $('#joinLat') };
-  const joinPanels = { ar: $('#panelAr'), lat: $('#panelLat') };
+  const joinTabs = { shop: $('#joinTabShop'), dist: $('#joinTabDist') };
+  const joinForms = { shop: $('#joinShop'), dist: $('#joinDist') };
+  const joinPanels = { shop: $('#panelShop'), dist: $('#panelDist') };
   function selectJoin(k) {
+    if (!joinTabs[k]) return;
     Object.keys(joinTabs).forEach((key) => {
       const on = key === k;
       joinTabs[key].setAttribute('aria-selected', on);
@@ -766,7 +789,7 @@
 
   // Países de Latinoamérica con su código telefónico (se completa solo al elegir)
   const LATAM = [
-    ['Bolivia', '+591'], ['Brasil', '+55'], ['Chile', '+56'], ['Colombia', '+57'], ['Costa Rica', '+506'],
+    ['Argentina', '+54 9'], ['Bolivia', '+591'], ['Brasil', '+55'], ['Chile', '+56'], ['Colombia', '+57'], ['Costa Rica', '+506'],
     ['Cuba', '+53'], ['Ecuador', '+593'], ['El Salvador', '+503'], ['Guatemala', '+502'], ['Haití', '+509'],
     ['Honduras', '+504'], ['México', '+52'], ['Nicaragua', '+505'], ['Panamá', '+507'], ['Paraguay', '+595'],
     ['Perú', '+51'], ['Puerto Rico', '+1'], ['República Dominicana', '+1'], ['Uruguay', '+598'], ['Venezuela', '+58'],
@@ -781,8 +804,8 @@
     });
   });
   const dialOf = (form) => { const o = form.querySelector('select[data-latam]').selectedOptions[0]; return (o && o.dataset.dial) || ''; };
-  joinTabs.ar.addEventListener('click', () => selectJoin('ar'));
-  joinTabs.lat.addEventListener('click', () => selectJoin('lat'));
+  joinTabs.shop.addEventListener('click', () => selectJoin('shop'));
+  joinTabs.dist.addEventListener('click', () => selectJoin('dist'));
 
   function sendJoin(form, lines) {
     if (!form.reportValidity()) return;
@@ -791,11 +814,11 @@
     form.reset();
     toast('¡Gracias! Te contactamos a la brevedad.');
   }
-  joinForms.ar.addEventListener('submit', (e) => {
+  joinForms.shop.addEventListener('submit', (e) => {
     e.preventDefault();
-    const d = new FormData(joinForms.ar);
-    sendJoin(joinForms.ar, [
-      'Hola Reaktor, quiero ser distribuidor (Argentina).',
+    const d = new FormData(joinForms.shop);
+    sendJoin(joinForms.shop, [
+      'Hola Reaktor, tengo un comercio y quiero vender Reaktor.',
       `Tipo: ${d.get('tipo')}`,
       `Nombre: ${d.get('nombre')}`,
       d.get('negocio') && `Negocio: ${d.get('negocio')}`,
@@ -804,15 +827,15 @@
       `WhatsApp: +54 9 ${d.get('whatsapp')}`,
     ]);
   });
-  joinForms.lat.addEventListener('submit', (e) => {
+  joinForms.dist.addEventListener('submit', (e) => {
     e.preventDefault();
-    const d = new FormData(joinForms.lat);
-    sendJoin(joinForms.lat, [
+    const d = new FormData(joinForms.dist);
+    sendJoin(joinForms.dist, [
       `Hola Reaktor, quiero ser distribuidor en ${d.get('pais')}.`,
-      `Ciudad: ${d.get('ciudad')}`,
+      `Zona: ${d.get('zona')}`,
       `Nombre: ${d.get('nombre')}`,
-      d.get('negocio') && `Negocio: ${d.get('negocio')}`,
-      `WhatsApp: ${dialOf(joinForms.lat)} ${d.get('whatsapp')}`,
+      d.get('negocio') && `Empresa: ${d.get('negocio')}`,
+      `WhatsApp: ${dialOf(joinForms.dist)} ${d.get('whatsapp')}`,
       d.get('email') && `Email: ${d.get('email')}`,
       d.get('mensaje') && `Mensaje: ${d.get('mensaje')}`,
     ]);

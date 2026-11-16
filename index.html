@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reaktor Energy Drink · Bebida energizante premium en Argentina</title>
-  <meta name="description" content="Reaktor es una bebida energizante premium de 350 ml con vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína. Comprala online o encontrá dónde comprar en el norte argentino (Salta, Jujuy, Tucumán y más).">
+  <title>Reaktor Energy Drink · Push your limits · Argentina</title>
+  <meta name="description" content="Reaktor Original: bebida energizante con cafeína, inositol, taurina y vitaminas C, B3, B5, B6 y B12. Comprala online o encontrá dónde comprar en Argentina. Comercios y distribuidores, sumate.">
   <meta name="theme-color" content="#0d0d0d">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_AR">
   <meta property="og:site_name" content="Reaktor">
   <meta property="og:title" content="Reaktor Energy Drink · Push your limits">
-  <meta property="og:description" content="Bebida energizante premium con vitaminas, taurina, inositol y cafeína. Comprá acá o encontrá dónde comprar.">
+  <meta property="og:description" content="Bebida energizante con cafeína, inositol, taurina y vitaminas. Comprala online o encontrá dónde comprar.">
   <meta property="og:image" content="https://cdalimentos2026.github.io/reaktor/og-reaktor.jpg">
   <meta property="og:url" content="https://cdalimentos2026.github.io/reaktor/">
   <link rel="canonical" href="https://cdalimentos2026.github.io/reaktor/">
@@ -31,23 +31,23 @@
       },
       {
         "@type": "Product",
-        "name": "Reaktor Energy Drink 350 ml",
+        "name": "Reaktor Original",
         "brand": { "@id": "#brand" },
         "category": "Bebida energizante",
         "image": "bottle-hd.webp",
-        "description": "Bebida energizante premium en botella de 350 ml con vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína. Elaborada bajo licencia de The Monarch Beverage Company, Atlanta, EE. UU.",
+        "description": "Bebida energizante con cafeína, inositol, taurina y vitaminas C, B3, B5, B6 y B12. Formato de 1,5 L.",
         "additionalProperty": [
-          { "@type": "PropertyValue", "name": "Contenido neto", "value": "350 ml" },
+          { "@type": "PropertyValue", "name": "Formatos", "value": "1,5 L" },
           { "@type": "PropertyValue", "name": "Vitaminas", "value": "C, B3, B5, B6, B12" },
-          { "@type": "PropertyValue", "name": "Activos", "value": "Taurina, inositol, cafeína" }
+          { "@type": "PropertyValue", "name": "Activos", "value": "Cafeína, inositol, taurina" }
         ]
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
-          { "@type": "Question", "name": "¿Qué contiene Reaktor?", "acceptedAnswer": { "@type": "Answer", "text": "Vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína, en una botella de 350 ml." } },
+          { "@type": "Question", "name": "¿Qué contiene Reaktor?", "acceptedAnswer": { "@type": "Answer", "text": "Cafeína, inositol, taurina y vitaminas C, B3, B5, B6 y B12." } },
           { "@type": "Question", "name": "¿Quiénes no deberían tomar Reaktor?", "acceptedAnswer": { "@type": "Answer", "text": "No se recomienda para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína." } },
-          { "@type": "Question", "name": "¿Dónde comprar Reaktor?", "acceptedAnswer": { "@type": "Answer", "text": "Online en esta página o en los puntos de venta del norte argentino: Jujuy, Salta, Tucumán, Catamarca, La Rioja, Santiago del Estero, Formosa, Chaco, Corrientes y Misiones." } },
+          { "@type": "Question", "name": "¿Dónde comprar Reaktor?", "acceptedAnswer": { "@type": "Answer", "text": "Online en esta página o en los puntos de venta de Argentina, empezando por el norte: Jujuy, Salta, Tucumán, Catamarca, La Rioja, Santiago del Estero, Formosa, Chaco, Corrientes y Misiones." } },
           { "@type": "Question", "name": "¿Cómo vender Reaktor en mi comercio?", "acceptedAnswer": { "@type": "Answer", "text": "Escribinos por WhatsApp con tu provincia, localidad y tipo de negocio; accedés a precio mayorista, pedís desde el celular y recibís el pedido en tu local." } }
         ]
       }
@@ -57,7 +57,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20">
+    <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
 
@@ -81,23 +81,26 @@
   <!-- NAV -->
   <header class="nav">
     <a href="#" class="logo" aria-label="Reaktor inicio"><img src="logo-reaktor-wordmark.png?v=1" alt="Reaktor" class="logo-img"></a>
-    <nav class="nav-links">
-      <a href="#comprar">Comprar acá</a>
-      <a href="#donde-comprar">Dónde comprar</a>
-      <a href="#historia">Conocé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></a>
-      <a href="#comercios">Comercios</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#reaktor">Reaktivate</a>
+      <a href="#comprar">Comprar online</a>
+      <a href="#donde-comprar">Dónde encontrarla</a>
+      <a href="#comercios" data-join="shop">Comercios</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#comercios" data-join="dist" class="nav-dist">Quiero ser distribuidor</a>
     </nav>
     <div class="nav-actions">
-    <a href="#comercios" class="dist-btn"><span class="long">Quiero ser distribuidor</span><span class="short">Distribuidor</span></a>
+    <a href="#comercios" data-join="dist" class="dist-btn"><span class="long">Quiero ser distribuidor</span><span class="short">Distribuidor</span></a>
     <button class="cart-btn" id="cartOpen" aria-label="Abrir carrito">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
       <span class="cart-count" id="cartCount">0</span>
     </button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><i></i><i></i><i></i></button>
     </div>
   </header>
 
   <!-- SCROLLYTELLING HERO -->
-  <p class="sr-only">Reaktor energy drink: un hombre rompe un muro y empuja el titular «Push your limits», que se transforma en la botella dorada de Reaktor de 350 ml.</p>
+  <p class="sr-only">Reaktor energy drink: un hombre rompe un muro y empuja el titular «Push your limits», que se transforma en la botella de Reaktor Original.</p>
   <section class="hero" id="hero">
     <div class="stage">
       <canvas id="seq" aria-label="Animación Reaktor: push your limits"></canvas>
@@ -119,13 +122,19 @@
       <div class="reveal" id="comprar">
 
         <aside class="buy" id="buyPanel">
-          <p class="eyebrow">Real Premium Drink</p>
-          <h1 class="buy-title"><img src="logo-reaktor-wordmark.png?v=1" alt="Reaktor" class="buy-logo"> <small>350 ml</small></h1>
+          <p class="eyebrow">Energy drink</p>
+          <h1 class="buy-title"><img src="logo-reaktor-wordmark.png?v=1" alt="Reaktor" class="buy-logo"> <small>Original</small></h1>
 
           <div class="price-row">
             <span class="price" id="price">Precio</span>
             <span class="price-unit" id="priceUnit">a definir</span>
           </div>
+
+          <fieldset class="packs formats">
+            <legend>Formato</legend>
+            <label><input type="radio" name="fmt" value="1,5 L" checked><span><b>1,5 L</b><em>Botella</em></span></label>
+            <label><input type="radio" name="fmt" value="Formato 2"><span><b>—</b><em class="tbd">a confirmar</em></span></label>
+          </fieldset>
 
           <fieldset class="packs">
             <legend>Presentación</legend>
@@ -143,12 +152,12 @@
             <button class="add-btn" id="addBtn" type="button">Agregar al carrito</button>
           </div>
           <p class="ship">Envío a domicilio · Retiro en tienda</p>
-          <a href="#conoce" class="story-open story-link">Conocé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">: nuestra historia y fórmula <span aria-hidden="true">→</span></a>
+          <a href="#reaktor" class="story-link">Más sobre <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">: versiones, activos y origen <span aria-hidden="true">→</span></a>
 
           <dl class="specs" id="ficha-mini">
-            <div><dt>Contenido neto</dt><dd>350 ml</dd></div>
+            <div><dt>Formatos</dt><dd>1,5 L · <span class="tbd">a confirmar</span></dd></div>
             <div><dt>Vitaminas</dt><dd>C · B3 · B5 · B6 · B12</dd></div>
-            <div><dt>Activos</dt><dd>Taurina · Inositol · Cafeína</dd></div>
+            <div><dt>Activos</dt><dd>Cafeína · Inositol · Taurina</dd></div>
           </dl>
         </aside>
         <div class="bottle-wrap" aria-hidden="true"></div>
@@ -156,137 +165,84 @@
     </div>
   </section>
 
-  <!-- BIFURCADOR: dos audiencias -->
-  <section class="split" id="para-quien" aria-labelledby="splitTitle">
-    <p class="eyebrow">Elegí tu camino</p>
-    <h2 id="splitTitle">¿Para vos o para tu negocio?</h2>
-    <div class="split-grid">
-      <article class="path path-consumer" data-audience="consumer">
-        <span class="path-tag">Consumidor</span>
-        <h3>Para vos</h3>
-        <p>Energía premium para entrenar, estudiar o trabajar. Pedila online o encontrala cerca tuyo.</p>
-        <div class="path-ctas">
-          <a href="#comprar" class="btn btn-dark">Comprar online</a>
-          <a href="#donde-comprar" class="btn btn-ghost-dark">Dónde comprar</a>
-        </div>
-      </article>
-      <article class="path path-business" data-audience="business">
-        <span class="path-tag">Comercio</span>
-        <h3>Para tu negocio</h3>
-        <p>Vendé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> en tu tienda, micromercado, gimnasio o kiosco. Precio mayorista y pedido desde el celular.</p>
-        <div class="path-ctas">
-          <a href="#comercios" class="btn btn-yellow">Quiero ser distribuidor</a>
-          <a href="#faq" class="btn btn-ghost" data-faq-tab="business">Preguntas frecuentes</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- BENEFICIOS · Tecnología de la energía -->
-  <section class="formula-sec" id="beneficios" data-audience="consumer">
-    <div class="formula-inner">
-      <div class="tech">
-        <div class="tech-visual" aria-hidden="true">
-          <img src="halo-reaktor.png?v=1" alt="" class="tech-halo">
-          <img src="bottle-hd.webp" alt="" class="tech-bottle" loading="lazy">
-        </div>
-        <div class="tech-body">
-          <p class="eyebrow">Tecnología de la energía</p>
-          <h2>Una fórmula<br>con la potencia de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h2>
-          <ul class="tech-list">
-            <li><b>Cafeína</b><span>Agudiza la percepción y la concentración.</span></li>
-            <li><b>Taurina</b><span>Favorece el rendimiento cuando más lo necesitás.</span></li>
-            <li><b>Vitaminas C, B3, B5, B6 y B12</b><span>Ayudan a un óptimo desarrollo del organismo.</span></li>
-            <li><b>Inositol</b><span>Ayuda a la nutrición del cerebro.</span></li>
-          </ul>
-          <p class="tech-resp"><b>Consumo responsable:</b> <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> te acompaña en el día a día, en su justa medida. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
-          <div class="tech-ctas">
-            <a href="#comprar" class="btn btn-yellow">Comprar acá</a>
-            <a href="#conoce" class="btn btn-ghost story-open">Más sobre la marca</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NUESTRA HISTORIA (Conocé Reaktor) -->
-  <section class="history" id="historia" data-audience="consumer" aria-labelledby="histTitle">
+  <!-- REAKTOR · marca, versiones y origen (primera sección del menú) -->
+  <section class="history" id="reaktor" data-audience="consumer" aria-labelledby="histTitle">
     <div class="history-bg" aria-hidden="true">PUSH<br>YOUR<br>LIMITS</div>
     <div class="history-inner">
       <header class="history-head">
-        <p class="eyebrow">Conocé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></p>
-        <h2 id="histTitle">De Atlanta<br>al norte argentino</h2>
-        <p class="history-lead">Una marca internacional con espíritu <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">: energía para que vayas más allá de tus límites, todos los días.</p>
+        <p class="eyebrow">Reaktivate</p>
+        <h2 id="histTitle">De Atlanta<br>a Argentina</h2>
+        <p class="history-lead">Para la gente real que deja todo en la cancha, sea cual sea su cancha: rendir una materia, cerrar un turno largo o salir a la ruta. <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> saca la energía que llevás adentro para que vayas más allá de tus límites.</p>
         <div class="origin">
           <div><span>Origen</span><b>Atlanta, EE. UU.</b></div>
-          <div><span>Dirección</span><b>París, Francia</b></div>
-          <div><span>Presencia</span><b>Cerca de 50 países</b></div>
+          <div><span>Compañía</span><b>Franco-americana</b></div>
+          <div><span>Presencia</span><b>Cerca de 30 países</b></div>
         </div>
       </header>
+
+      <!-- VERSIONES (por ahora solo Original; 5G y Sport se suman cuando se lancen) -->
+      <div class="versions" id="versiones">
+        <p class="eyebrow">Versiones</p>
+        <article class="ver-card">
+          <div class="ver-visual" aria-hidden="true">
+            <img src="halo-reaktor.png?v=1" alt="" class="ver-halo" loading="lazy">
+            <span class="ver-word">Original</span>
+          </div>
+          <div class="ver-body">
+            <span class="ver-badge">Disponible</span>
+            <h3 class="ver-name"><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> Original</h3>
+            <p>La fórmula clásica de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">: cafeína, inositol, taurina y vitaminas C, B3, B5, B6 y B12. Energía de verdad para el día y para la noche.</p>
+            <div class="ver-formats">
+              <span>Formatos</span>
+              <b>1,5 L</b>
+              <b class="tbd">Formato a confirmar</b>
+            </div>
+            <div class="ver-ctas">
+              <a href="#comprar" class="btn btn-yellow">Comprar online</a>
+              <a href="#donde-comprar" class="btn btn-ghost">Dónde encontrarla</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- MOMENTOS DE CONSUMO (brief) -->
+      <div class="moments">
+        <p class="eyebrow">Tu momento <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></p>
+        <div class="moment-grid">
+          <article><h3>Cuando necesitás un empujón</h3><p>Estudiando, trabajando o manejando largas distancias.</p></article>
+          <article><h3>Antes y después</h3><p>De un examen, de una reunión importante, del entrenamiento.</p></article>
+          <article><h3>Con tu gente</h3><p>En la previa, en el recital, en la salida con amigos.</p></article>
+          <article><h3>Porque sí</h3><p>Cuando tenés sed y querés reaktivarte.</p></article>
+        </div>
+      </div>
 
       <ol class="timeline" id="timeline">
         <i class="tl-line" aria-hidden="true"><i class="tl-fill"></i></i>
         <li class="tl-item left">
-          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M6 42h36M10 42V20h8v22M18 42V10h10v32M28 42V24h10v18M13 25h2M13 31h2M22 15h2M22 21h2M22 27h2M32 29h2M32 35h2"/></svg></div>
+          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="17" ry="17"/><circle cx="24" cy="24" r="4"/><path d="M24 7v13M24 28v13M7 24h13M28 24h13M12 12l9 9M27 27l9 9M36 12l-9 9M21 27l-9 9"/></svg></div>
           <div class="tl-card">
-            <span class="tl-year">1965</span>
+            <span class="tl-year">Origen</span>
             <span class="tl-place">Atlanta, EE. UU.</span>
-            <h3>Nace The Monarch Beverage Company</h3>
-            <p>La compañía que hoy está detrás de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> se funda en Atlanta, Georgia.</p>
+            <h3>Nace <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h3>
+            <p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> pertenece a The Monarch Beverage Company, una compañía franco-americana. <span class="tbd">Link a la web de Monarch: a confirmar.</span></p>
           </div>
         </li>
         <li class="tl-item right">
           <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c6 6 6 28 0 34M24 7c-6 6-6 28 0 34M10 15h28M10 33h28"/></svg></div>
           <div class="tl-card">
-            <span class="tl-year">1976–1998</span>
-            <span class="tl-place">Expansión</span>
-            <h3>Al mundo</h3>
-            <p>Monarch expande su red internacional de embotelladores y franquiciados.</p>
-          </div>
-        </li>
-        <li class="tl-item left">
-          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M4 22l8-8 8 4 6-4 8 6 10-4M12 14v14l8 8 4-3 3 3 4-3 3 2 6-6V24"/><path d="M20 30l4 4M24 27l4 4"/></svg></div>
-          <div class="tl-card">
-            <span class="tl-year">1999–2007</span>
-            <span class="tl-place">Estados Unidos + Francia</span>
-            <h3>Alma franco-americana</h3>
-            <p>Jacques Bombal y un grupo de inversores franceses toman la compañía y crean nuevas marcas: American Cola, Planet, Rush Energy y <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">.</p>
-          </div>
-        </li>
-        <li class="tl-item right">
-          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="17" ry="17"/><circle cx="24" cy="24" r="4"/><path d="M24 7v13M24 28v13M7 24h13M28 24h13M12 12l9 9M27 27l9 9M36 12l-9 9M21 27l-9 9"/></svg></div>
-          <div class="tl-card">
-            <span class="tl-year">2001</span>
-            <span class="tl-place">Atlanta</span>
-            <h3>Nace <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h3>
-            <p>Su nombre se inspira en la energía de los reactores de avión: potencia para despegar y llegar más lejos.</p><p class="tbd tl-note">Año y origen del nombre a confirmar con Monarch.</p>
-          </div>
-        </li>
-        <li class="tl-item left">
-          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 4v6M20 10h8M21 10l-5 30M27 10l5 30M18 24h12M16 33h16M12 42h24M20 42a4 4 0 0 1 8 0"/></svg></div>
-          <div class="tl-card">
-            <span class="tl-year">2008–2009</span>
-            <span class="tl-place">París, Francia</span>
-            <h3>Rumbo a París</h3>
-            <p>La dirección operativa de la compañía se traslada a París.</p>
-          </div>
-        </li>
-        <li class="tl-item right">
-          <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="26" r="16"/><path d="M14 18c4 2 6 6 4 10s2 6 6 8M30 12c-2 4 2 6 6 6M34 30c-3 0-5 2-4 6"/><path d="M38 6c-3 0-5 2-5 5 0 4 5 8 5 8s5-4 5-8c0-3-2-5-5-5z"/><circle cx="38" cy="11" r="1.5"/></svg></div>
-          <div class="tl-card">
-            <span class="tl-year">2010–hoy</span>
-            <span class="tl-place">Cerca de 50 países</span>
-            <h3>Una marca global</h3>
-            <p>Las marcas de Monarch llegan a cerca de 50 países a través de sus franquiciados.</p>
+            <span class="tl-year">Mundo</span>
+            <span class="tl-place">Cerca de 30 países</span>
+            <h3>Energía sin fronteras</h3>
+            <p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> se toma hoy en cerca de 30 países.</p>
           </div>
         </li>
         <li class="tl-item left">
           <div class="tl-node" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M4 40l12-18 7 10 6-8 15 16z"/><circle cx="34" cy="12" r="5"/><path d="M34 3v3M34 18v3M25 12h3M40 12h3M28 6l2 2M38 16l2 2M40 6l-2 2"/></svg></div>
           <div class="tl-card">
             <span class="tl-year">Hoy</span>
-            <span class="tl-place">Norte argentino</span>
+            <span class="tl-place">Argentina</span>
             <h3><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> llega a Argentina</h3>
-            <p>Jujuy, Salta, Tucumán y todo el norte del país se suman a la energía <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">.</p>
+            <p>Arranca por el norte: Jujuy, Salta, Tucumán y cada vez más provincias se suman a la energía <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">.</p>
           </div>
         </li>
       </ol>
@@ -303,11 +259,64 @@
     </div>
   </section>
 
+  <!-- ACTIVOS Y VITAMINAS · Tecnología de la energía -->
+  <section class="formula-sec" id="beneficios" data-audience="consumer">
+    <div class="formula-inner">
+      <div class="tech">
+        <div class="tech-visual" aria-hidden="true">
+          <img src="halo-reaktor.png?v=1" alt="" class="tech-halo">
+          <img src="bottle-hd.webp" alt="" class="tech-bottle" loading="lazy">
+        </div>
+        <div class="tech-body">
+          <p class="eyebrow">Activos y vitaminas</p>
+          <h2>Una fórmula<br>con la potencia de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h2>
+          <ul class="tech-list">
+            <li><b>Cafeína</b><span>Agudiza la percepción y la concentración.</span></li>
+            <li><b>Inositol</b><span>Ayuda a la nutrición del cerebro.</span></li>
+            <li><b>Taurina</b><span>Favorece el rendimiento cuando más lo necesitás.</span></li>
+            <li><b>Vitaminas C, B3, B5, B6 y B12</b><span>Ayudan a un óptimo desarrollo del organismo.</span></li>
+          </ul>
+          <p class="tech-resp"><b>Consumo responsable:</b> <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> te acompaña en el día a día, en su justa medida. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
+          <div class="tech-ctas">
+            <a href="#comprar" class="btn btn-yellow">Comprar online</a>
+            <a href="#donde-comprar" class="btn btn-ghost">Dónde encontrarla</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIFURCADOR: cuatro caminos claros -->
+  <section class="split" id="para-quien" aria-labelledby="splitTitle">
+    <p class="eyebrow">Elegí tu camino</p>
+    <h2 id="splitTitle">¿Para vos o para tu negocio?</h2>
+    <div class="split-grid">
+      <article class="path path-consumer" data-audience="consumer">
+        <span class="path-tag">Para vos</span>
+        <h3>Quiero tomarla</h3>
+        <p>Pedila online y te la llevamos, o buscá el punto de venta más cerca tuyo.</p>
+        <div class="path-ctas">
+          <a href="#comprar" class="btn btn-dark">Comprar online</a>
+          <a href="#donde-comprar" class="btn btn-ghost-dark">Dónde encontrarla</a>
+        </div>
+      </article>
+      <article class="path path-business" data-audience="business">
+        <span class="path-tag">Para tu negocio</span>
+        <h3>Quiero venderla</h3>
+        <p>Sumá <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> a tu kiosco, almacén o gimnasio con precio mayorista, o distribuila en tu zona o tu país.</p>
+        <div class="path-ctas">
+          <a href="#comercios" data-join="shop" class="btn btn-yellow">Tengo un comercio</a>
+          <a href="#comercios" data-join="dist" class="btn btn-ghost">Quiero ser distribuidor</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- DÓNDE COMPRAR -->
   <section class="where" id="donde-comprar" data-audience="consumer">
     <div class="where-inner">
       <div class="where-head">
-        <p class="eyebrow dark">Dónde comprar</p>
+        <p class="eyebrow dark">Dónde encontrarla</p>
         <h2>Encontrá <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"><br>cerca tuyo</h2>
         <p class="where-copy">Elegí tu provincia y mirá los puntos de venta. ¿No hay uno cerca? Pedila online.</p>
       </div>
@@ -332,32 +341,33 @@
           <p><b>Todavía no hay puntos de venta en esta zona.</b></p>
           <div class="store-empty-ctas">
             <a href="#comprar" class="btn btn-dark">Pedila online</a>
-            <a href="#comercios" class="btn btn-ghost-dark">¿Tenés un comercio? Sumate</a>
+            <a href="#comercios" data-join="shop" class="btn btn-ghost-dark">¿Tenés un comercio? Sumate</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COMERCIOS (B2B) -->
+  <!-- NEGOCIOS (B2B): comercios y distribuidores -->
   <section class="biz" id="comercios" data-audience="business">
     <div class="biz-inner">
       <div class="biz-head">
-        <p class="eyebrow">Para comercios</p>
-        <h2>Vendé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"><br>en tu negocio</h2>
-        <p class="biz-copy">Tiendas de barrio, micromercados, kioscos, gimnasios, restaurantes, cafeterías y revendedores independientes. Atendemos Argentina y toda Latinoamérica.</p>
+        <p class="eyebrow">Para negocios</p>
+        <h2>Vendé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h2>
+        <p class="biz-copy">Elegí cómo querés trabajar con nosotros: comprando para tu local o distribuyendo en tu zona o tu país.</p>
       </div>
 
       <div class="biz-join" id="sumate">
-        <h3 class="biz-sub">Quiero ser distribuidor · ¿Desde dónde nos escribís?</h3>
-        <div class="tabs join-tabs" role="tablist" aria-label="País">
-          <button role="tab" id="joinTabAr" aria-controls="panelAr" aria-selected="false">Soy de Argentina</button>
-          <button role="tab" id="joinTabLat" aria-controls="panelLat" aria-selected="false">Soy de otro país</button>
+        <h3 class="biz-sub">¿Qué buscás?</h3>
+        <div class="tabs join-tabs" role="tablist" aria-label="Tipo de negocio">
+          <button role="tab" id="joinTabShop" aria-controls="panelShop" aria-selected="false">Tengo un comercio</button>
+          <button role="tab" id="joinTabDist" aria-controls="panelDist" aria-selected="false">Quiero ser distribuidor</button>
         </div>
       </div>
 
-      <!-- ARGENTINA -->
-      <div class="join-panel" id="panelAr" role="tabpanel" aria-labelledby="joinTabAr" hidden>
+      <!-- COMERCIOS: compran para revender en su local (Argentina) -->
+      <div class="join-panel" id="panelShop" role="tabpanel" aria-labelledby="joinTabShop" hidden>
+        <p class="join-lead">Kioscos, almacenes, micromercados, gimnasios, bares y cafeterías de Argentina que quieren tener <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> en su local. <a href="#comercios" data-join="dist">¿Estás en otro país? Escribinos como distribuidor.</a></p>
         <div class="biz-benefits">
           <article><span class="num">01</span><h3>Precio mayorista</h3><p>Lista de precios exclusiva para comercios.</p></article>
           <article><span class="num">02</span><h3>Pedí desde el celular</h3><p>Hacé tu pedido en minutos, cuando quieras, y repetilo con un clic.</p></article>
@@ -378,7 +388,7 @@
         </dl>
 
         <h3 class="biz-sub">Dejá tus datos</h3>
-        <form class="join-form" id="joinAr">
+        <form class="join-form" id="joinShop">
           <div class="join-grid">
             <div class="seg join-seg" role="radiogroup" aria-label="Tipo de cliente">
               <label><input type="radio" name="tipo" value="Comercio" checked><span>Comercio</span></label>
@@ -398,8 +408,8 @@
             <label>Rubro
               <select name="rubro">
                 <option value="">Elegí el rubro</option>
-                <option>Tienda de barrio</option><option>Micromercado</option><option>Kiosco</option><option>Gimnasio</option>
-                <option>Restaurante o cafetería</option><option>Distribuidora</option><option>Otro</option>
+                <option>Kiosco</option><option>Almacén o tienda de barrio</option><option>Micromercado</option><option>Gimnasio</option>
+                <option>Bar, restaurante o cafetería</option><option>Otro</option>
               </select>
             </label>
             <label>WhatsApp
@@ -411,33 +421,34 @@
         </form>
       </div>
 
-      <!-- OTROS PAÍSES -->
-      <div class="join-panel" id="panelLat" role="tabpanel" aria-labelledby="joinTabLat" hidden>
+      <!-- DISTRIBUIDORES: Argentina y otros países -->
+      <div class="join-panel" id="panelDist" role="tabpanel" aria-labelledby="joinTabDist" hidden>
+        <p class="join-lead">Para empresas que quieren llevar <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> a los comercios de su zona, en Argentina o en otro país de Latinoamérica.</p>
         <div class="biz-benefits">
-          <article><span class="num">01</span><h3>Llevá <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> a tu país</h3><p>Sumate como comercio o distribuidor en tu ciudad.</p></article>
-          <article><span class="num">02</span><h3>Respaldo internacional</h3><p>Una marca de The Monarch Beverage Company, con franquiciados en cerca de 50 países.</p></article>
-          <article><span class="num">03</span><h3>Equipo local</h3><p>Te conectamos con el equipo de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> que atiende tu país.</p></article>
+          <article><span class="num">01</span><h3>Tu zona</h3><p>Sumate como distribuidor de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> en tu provincia, región o país.</p></article>
+          <article><span class="num">02</span><h3>Respaldo internacional</h3><p>Una marca presente en cerca de 30 países.</p></article>
+          <article><span class="num">03</span><h3>Equipo comercial</h3><p>Un contacto directo con el equipo de Reaktor para crecer en tu zona.</p></article>
         </div>
         <h3 class="biz-sub">Cómo funciona</h3>
         <ol class="steps">
-          <li><span>1</span><div><b>Dejás tus datos</b><p>Elegís tu país y completás el formulario.</p></div></li>
-          <li><span>2</span><div><b>Te conectamos</b><p>El equipo de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> de tu país te contacta por WhatsApp.</p></div></li>
+          <li><span>1</span><div><b>Dejás tus datos</b><p>Elegís tu país y nos contás qué zona cubrís.</p></div></li>
+          <li><span>2</span><div><b>Te contactamos</b><p>El equipo comercial de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> te escribe por WhatsApp.</p></div></li>
         </ol>
         <h3 class="biz-sub">Dejá tus datos</h3>
-        <form class="join-form" id="joinLat">
+        <form class="join-form" id="joinDist">
           <div class="join-grid">
             <label>País
               <select name="pais" required data-latam></select>
             </label>
-            <label>Ciudad<input name="ciudad" required autocomplete="address-level2"></label>
+            <label>Provincia, ciudad o zona<input name="zona" required autocomplete="address-level1"></label>
             <label>Nombre y apellido<input name="nombre" required autocomplete="name"></label>
-            <label>Nombre del negocio<input name="negocio" autocomplete="organization"></label>
+            <label>Empresa<input name="negocio" autocomplete="organization"></label>
             <label>WhatsApp<span class="tel"><em data-prefix>+ ···</em><input name="whatsapp" required type="tel" inputmode="numeric" placeholder="Número sin código de país"></span></label>
             <label>Email<input name="email" type="email" autocomplete="email"></label>
-            <label class="join-wide">Contanos sobre tu negocio<textarea name="mensaje" rows="3" placeholder="Qué tipo de negocio tenés y qué volumen manejás"></textarea></label>
+            <label class="join-wide">Contanos sobre tu distribuidora<textarea name="mensaje" rows="3" placeholder="Qué zona cubrís, a cuántos comercios llegás, qué otras marcas distribuís"></textarea></label>
           </div>
           <button class="add-btn" type="submit">Enviar mis datos</button>
-          <p class="join-note">Te conectamos con el equipo de <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> de tu país.</p>
+          <p class="join-note">Te contactamos por WhatsApp a la brevedad.</p>
         </form>
       </div>
     </div>
@@ -450,17 +461,18 @@
       <h2>¿Dudas?</h2>
       <div class="tabs" role="tablist" aria-label="Tipo de pregunta">
         <button role="tab" id="tabConsumer" aria-controls="faqConsumer" aria-selected="true">Consumidor</button>
-        <button role="tab" id="tabBusiness" aria-controls="faqBusiness" aria-selected="false" tabindex="-1">Comercio</button>
+        <button role="tab" id="tabBusiness" aria-controls="faqBusiness" aria-selected="false" tabindex="-1">Negocios</button>
       </div>
       <div class="faq-panel" id="faqConsumer" role="tabpanel" aria-labelledby="tabConsumer" data-audience="consumer">
-        <details><summary>¿Qué contiene <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">?</summary><p>Vitaminas C, B3, B5, B6 y B12, taurina, inositol y cafeína, en una botella de 350 ml.</p></details>
-        <details><summary>¿Cuánta cafeína tiene por botella?</summary><p class="tbd">Completar con el dato del rótulo (mg de cafeína por 350 ml).</p></details>
+        <details><summary>¿Qué contiene <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">?</summary><p>Cafeína, inositol, taurina y vitaminas C, B3, B5, B6 y B12.</p></details>
+        <details><summary>¿Cuánta cafeína tiene?</summary><p class="tbd">Completar con el dato del rótulo (mg de cafeína por porción y por envase).</p></details>
+        <details><summary>¿En qué formatos viene?</summary><p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> Original viene en botella de 1,5 L. <span class="tbd">Segundo formato a confirmar.</span></p></details>
         <details><summary>¿Quiénes no deberían tomarla?</summary><p>No se recomienda para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p></details>
         <details><summary>¿Hacen envíos?</summary><p>Sí: envío a domicilio en las provincias del norte habilitadas y retiro en tienda. <span class="tbd">Localidades a confirmar.</span></p></details>
-        <details><summary>¿Dónde la consigo si no compro online?</summary><p>En los puntos de venta de <a href="#donde-comprar">Dónde comprar</a>.</p></details>
+        <details><summary>¿Dónde la consigo si no compro online?</summary><p>En los puntos de venta de <a href="#donde-comprar">Dónde encontrarla</a>.</p></details>
       </div>
       <div class="faq-panel" id="faqBusiness" role="tabpanel" aria-labelledby="tabBusiness" data-audience="business" hidden>
-        <details><summary>¿Quién puede ser distribuidor?</summary><p>Comercios (tiendas, micromercados, kioscos, gimnasios, restaurantes, cafeterías) y revendedores independientes.</p></details>
+        <details><summary>¿Cuál es la diferencia entre comercio y distribuidor?</summary><p>El comercio compra <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> para venderla en su local (kiosco, almacén, gimnasio, bar). El distribuidor la lleva a los comercios de una zona o un país.</p></details>
         <details><summary>¿Cuánto tardan en contactarme?</summary><p class="tbd">Plazo a definir por el equipo comercial.</p></details>
         <details><summary>¿Cuál es el pedido mínimo?</summary><p class="tbd">A definir (por cantidad de cajas o monto).</p></details>
         <details><summary>¿Cómo pago mis pedidos?</summary><p class="tbd">Contra entrega, QR o transferencia (a confirmar).</p></details>
@@ -475,7 +487,7 @@
     <div class="footer-grid">
       <div>
         <a href="#" class="logo" aria-label="Reaktor inicio"><img src="logo-reaktor-light.png?v=1" alt="Reaktor energy drink" class="footer-logo"></a>
-        <p class="footer-tag">Real Premium Drink · Push your limits</p>
+        <p class="footer-tag">Push your limits</p>
         <div class="socials">
           <a href="https://www.instagram.com/reaktorargentina/" target="_blank" rel="noopener" aria-label="Instagram de Reaktor Argentina" class="soc soc-ig"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
           <a href="#" aria-label="TikTok de Reaktor" class="soc">TT</a>
@@ -484,15 +496,17 @@
       </div>
       <div>
         <h4>Producto</h4>
-        <a href="#comprar">Comprar acá</a>
-        <a href="#historia">Conocé <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#donde-comprar">Dónde comprar</a>
+        <a href="#reaktor">Reaktivate</a>
+        <a href="#beneficios">Activos y vitaminas</a>
+        <a href="#comprar">Comprar online</a>
+        <a href="#donde-comprar">Dónde encontrarla</a>
+        <a href="#faq">Preguntas frecuentes</a>
       </div>
       <div>
-        <h4>Comercios</h4>
-        <a href="#comercios">Ser distribuidor</a>
-        <a href="#faq" data-faq-tab="business">Preguntas frecuentes</a>
+        <h4>Negocios</h4>
+        <a href="#comercios" data-join="shop">Tengo un comercio</a>
+        <a href="#comercios" data-join="dist">Quiero ser distribuidor</a>
+        <a href="#faq" data-faq-tab="business">Preguntas de negocios</a>
         <a href="#" class="wa-link" data-wa="business">WhatsApp comercial</a>
       </div>
       <div>
@@ -536,67 +550,6 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <!-- VENTANA "CONOCÉ REAKTOR" (historia, ADN y fórmula) -->
-  <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle" hidden>
-    <div class="modal-backdrop" data-close></div>
-    <article class="modal-card story">
-      <button class="modal-close" type="button" data-close aria-label="Cerrar">✕</button>
-      <header class="story-hero">
-        <img src="logo-reaktor-light.png?v=1" alt="Reaktor energy drink" class="story-logo">
-        <h2 id="storyTitle">Más allá de tus límites</h2>
-        <p class="story-lead"><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> existe para que saques tu propia energía y vayas más allá de tus límites, todos los días.</p>
-      </header>
-
-      <section class="story-block">
-        <p class="eyebrow">Nuestra historia</p>
-        <h3>Cómo nació <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h3>
-        <p class="tbd">Pendiente del brief de Monarch: cómo y por qué se creó <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor">, qué necesidad vimos y por qué decidimos llegar a Argentina.</p>
-      </section>
-
-      <section class="story-block">
-        <p class="eyebrow">Una marca internacional</p>
-        <h3>Energía con respaldo global</h3>
-        <p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> es una bebida internacional, presente en distintos países y elaborada bajo licencia de The Monarch Beverage Company (Atlanta, EE. UU.).</p>
-        <p class="tbd">Pendiente del brief: origen de la marca y países donde se vende.</p>
-      </section>
-
-      <section class="story-block">
-        <p class="eyebrow">Por qué funciona</p>
-        <h3>Qué hace la fórmula en tu cuerpo</h3>
-        <div class="formula">
-          <div><b>Cafeína</b><p>Agudiza la percepción y la concentración. <span class="tbd">Cantidad por botella y equivalencia en tazas de café: pendiente del rótulo.</span></p></div>
-          <div><b>Taurina</b><p>Favorece el rendimiento cuando más lo necesitás.</p></div>
-          <div><b>Vitaminas C, B3, B5, B6 y B12</b><p>Ayudan a un óptimo desarrollo del organismo.</p></div>
-          <div><b>Inositol</b><p>Ayuda a la nutrición del cerebro.</p></div>
-        </div>
-      </section>
-
-      <section class="story-block story-responsible">
-        <p class="eyebrow">Consumo responsable</p>
-        <h3>Energía para tu día, en su justa medida</h3>
-        <p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> está pensada para acompañarte en el día a día: en los momentos en que necesitás estar alerta. No hace falta tomar de más. No se recomienda para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
-      </section>
-
-      <section class="story-block">
-        <p class="eyebrow">Qué dicen nuestros consumidores</p>
-        <h3>Voces <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"></h3>
-        <div class="quotes">
-          <blockquote class="tbd">Testimonio real de un consumidor (pendiente).</blockquote>
-          <blockquote class="tbd">Testimonio real de un consumidor (pendiente).</blockquote>
-          <blockquote class="tbd">Testimonio real de un consumidor (pendiente).</blockquote>
-        </div>
-      </section>
-
-      <footer class="story-cta">
-        <a href="#historia" class="btn btn-ghost" data-close-go>Ver la historia completa</a>
-        <a href="#comprar" class="btn btn-yellow" data-close-go>Comprar acá</a>
-        <a href="#donde-comprar" class="btn btn-ghost" data-close-go>Dónde comprar</a>
-      </footer>
-    </article>
-  </div>
-
-
-
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>

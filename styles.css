@@ -1091,3 +1091,85 @@ h1 .rk, h2 .rk, h3 .rk, .path h3 .rk { height: .74em; vertical-align: 0; }
 .ig-wrap { gap: 12px; margin-top: 10px; }
 .ig-wrap .instagram-media { max-width: 360px !important; min-height: 560px; }
 .history:has(#igWrap) { padding-bottom: 22px; }
+
+/* =========================================================
+   MENÚ: en compu los links; en celular/tablet, botón hamburguesa
+   ========================================================= */
+.menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.menu-btn i { display: block; width: 18px; height: 2px; border-radius: 2px; background: #fff; transition: transform .3s ease, opacity .2s ease; }
+body.menu-open .menu-btn i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+body.menu-open .menu-btn i:nth-child(2) { opacity: 0; }
+body.menu-open .menu-btn i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.nav-links .nav-dist { display: none; }
+@media (max-width: 1000px) {
+  .nav-links { display: none; }
+  .menu-btn { display: flex; }
+  body.menu-open .nav-links {
+    display: flex; flex-direction: column; gap: 0;
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+    background: #0d0d0d; border: 1px solid rgba(246,213,2,.35); border-radius: 20px; padding: 8px 10px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.9);
+    font-size: 15px; letter-spacing: .04em; animation: stepIn .3s ease both;
+  }
+  body.menu-open .nav-links a { padding: 15px 12px; opacity: 1; border-bottom: 1px solid rgba(255,255,255,.08); }
+  body.menu-open .nav-links a:last-child { border-bottom: 0; }
+  body.menu-open .nav-links .nav-dist { display: block; color: var(--yellow); }
+}
+@media (max-width: 420px) {
+  .nav { gap: 10px; padding-left: 16px; }
+  .dist-btn { display: none; }
+}
+
+/* =========================================================
+   VERSIONES (por ahora solo Original)
+   ========================================================= */
+.versions { margin: 0 auto 70px; max-width: 1000px; }
+.versions > .eyebrow, .moments > .eyebrow { text-align: center; margin-bottom: 18px; }
+.ver-card {
+  display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; overflow: hidden;
+  background: #141414; border: 1px solid rgba(246,213,2,.35); border-radius: 22px;
+}
+.ver-visual { position: relative; min-height: 300px; display: grid; place-items: center; background: radial-gradient(70% 80% at 50% 50%, rgba(246,213,2,.18), transparent 70%); }
+.ver-halo { position: absolute; width: 92%; opacity: .85; }
+.ver-word { position: relative; font-family: var(--display); text-transform: uppercase; font-size: clamp(54px, 7vw, 96px); line-height: 1.06; color: var(--yellow); text-shadow: 0 0 30px rgba(246,213,2,.35); }
+.ver-body { padding: 32px 34px; }
+.ver-badge { display: inline-block; padding: 5px 12px; border-radius: 999px; background: var(--yellow); color: var(--ink); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.ver-name { font-size: 28px; font-weight: 800; text-transform: uppercase; margin: 14px 0 10px; line-height: 1.2; }
+.ver-body p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.85); }
+.ver-formats { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 22px; }
+.ver-formats span { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); margin-right: 4px; }
+.ver-formats b { padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.25); font-size: 14px; }
+.ver-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* momentos de consumo */
+.moments { margin: 0 auto 80px; max-width: 1000px; }
+.moment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.moment-grid article { padding: 20px 18px; border-radius: 16px; background: #141414; border-top: 3px solid var(--yellow); }
+.moment-grid h3 { font-size: 16px; font-weight: 800; text-transform: uppercase; line-height: 1.25; margin-bottom: 8px; }
+.moment-grid p { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,.8); }
+
+/* texto de entrada de cada panel de negocios */
+.join-lead { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.85); max-width: 760px; margin-bottom: 26px; }
+.join-lead a { color: var(--yellow); }
+
+@media (max-width: 820px) {
+  .versions { margin-bottom: 50px; }
+  .ver-card { grid-template-columns: 1fr; }
+  .ver-visual { min-height: 170px; }
+  .ver-body { padding: 22px 20px 24px; }
+  .ver-name { font-size: 24px; }
+  .ver-ctas .btn { flex: 1; }
+  .moments { margin-bottom: 56px; }
+  .moment-grid { grid-template-columns: 1fr 1fr; }
+  .moment-grid article { padding: 16px 14px; }
+  .moment-grid h3 { font-size: 14px; }
+  .moment-grid p { font-size: 13px; }
+  .versions > .eyebrow, .moments > .eyebrow { text-align: left; }
+}
+
+/* panel de compra: selector de formato (1,5 L / a confirmar) */
+.packs.formats { grid-template-columns: repeat(2, 1fr); margin-bottom: 12px; }
+.packs.formats span { padding: 8px 6px; }
+.packs.formats b { font-size: 16px; }
+.price-row { margin: 12px 0 12px; }
