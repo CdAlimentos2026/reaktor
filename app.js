@@ -495,27 +495,43 @@
      ========================================================= */
   const snapSections = () => [...document.querySelectorAll('.split, .benefits, .where, .biz, .faq')];
   let snapT;
+  // Snap por dirección: un scroll corto hacia abajo lleva a la sección siguiente,
+  // uno hacia arriba a la anterior (no hace falta "empujar" media pantalla).
+  let settledY = window.scrollY, snapUntil = 0;
   function softSnap() {
-    if (playing || document.body.classList.contains('cart-open')) return;
+    // mientras se está deslizando hacia una sección, no re-evaluar (evita idas y vueltas)
+    if (performance.now() < snapUntil && Math.abs(window.scrollY - settledY) > 3) return;
+    if (playing || document.body.classList.contains('cart-open') || document.body.classList.contains('modal-open')) return;
     const y = window.scrollY, vh = window.innerHeight, end = heroEnd();
-    if (y < end + 2) return; // zona del hero: la maneja la reproducción
+    if (y < end + 2) { settledY = y; return; } // zona del hero: la maneja la reproducción
     const maxY = document.documentElement.scrollHeight - vh;
     // si una sección alta cubre toda la pantalla, el usuario está leyendo: no mover
     for (const el of snapSections()) {
       const top = el.offsetTop, bottom = top + el.offsetHeight;
-      if (top <= y + 1 && bottom >= y + vh - 1) return;
+      if (top <= y + 1 && bottom >= y + vh - 1) { settledY = y; return; }
     }
-    const targets = [end, ...snapSections().map((el) => el.offsetTop), maxY];
-    let best = null, bestD = Infinity;
-    for (const t of targets) {
-      const d = Math.abs(t - y);
-      if (d < bestD) { bestD = d; best = t; }
+    const targets = [end, ...snapSections().map((el) => el.offsetTop), maxY].sort((p, q) => p - q);
+    // si ya está justo al inicio de una sección (ej. llegó por un link del menú), queda ahí
+    if (targets.some((t) => Math.abs(t - y) <= 3)) { settledY = y; return; }
+    const moved = y - settledY;
+    let goal = null;
+    if (Math.abs(moved) > Math.min(70, vh * 0.08)) {
+      // siguiente sección en la dirección del gesto
+      goal = moved > 0 ? targets.find((t) => t > y + 2) : [...targets].reverse().find((t) => t < y - 2);
+      if (goal === undefined) goal = null;
     }
-    if (best !== null && bestD > 2 && bestD < vh * 0.6) window.scrollTo({ top: best, behavior: 'smooth' });
+    if (goal === null) { // gesto mínimo: volver a la más cercana
+      goal = targets.reduce((b, t) => (Math.abs(t - y) < Math.abs(b - y) ? t : b), targets[0]);
+    }
+    settledY = goal;
+    if (Math.abs(goal - y) > 2) {
+      snapUntil = performance.now() + 1400;
+      window.scrollTo({ top: goal, behavior: 'smooth' });
+    }
   }
   window.addEventListener('scroll', () => {
     clearTimeout(snapT);
-    snapT = setTimeout(softSnap, 180);
+    snapT = setTimeout(softSnap, 140);
   }, { passive: true });
 
   /* =========================================================
@@ -528,7 +544,9 @@
       e.preventDefault();
       closeCart();
       if (a.dataset.faqTab) selectFaq(a.dataset.faqTab);
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const goal = el.offsetTop;
+      settledY = goal; snapUntil = performance.now() + 1600; // que el snap no lo interrumpa
+      window.scrollTo({ top: goal, behavior: 'smooth' });
     });
   });
 
