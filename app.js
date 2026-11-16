@@ -4,15 +4,15 @@
   /* =========================================================
      CONFIG
      ========================================================= */
-  const FRAME_COUNT = 234;
-  const INTRO_FRAMES = 58;   // muro → puño → salto → señala (antes de empalmar con el video)
+  const FRAME_COUNT = 248;
+  const INTRO_FRAMES = 86;   // muro → puño → salto (clip generado) antes de empalmar con el video
   const FPS = 24;
   // Un solo archivo de video (todos los cuadros son keyframes → se puede adelantar
   // y retroceder cuadro a cuadro). 1920px en escritorio, 1280px en móvil.
-  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=3' : 'hero.mp4?v=3'; // subir ?v= cada vez que cambie el video
+  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=4' : 'hero.mp4?v=4'; // subir ?v= cada vez que cambie el video
   const VIDEO_END = 0.84;    // % del recorrido del hero que ocupa el video
   const REVEAL_LEN = 0.16;   // % del recorrido en el que aparece el panel de compra
-  const PLAY_MS = 5100;      // duración de la reproducción automática con 1 scroll
+  const PLAY_MS = 5400;      // duración de la reproducción automática con 1 scroll
   const UNIT_PRICE = null;   // precio por unidad: completar cuando esté definido (ej. 15)
   const CURRENCY = '$';
   const FREE_SHIP = 150;
