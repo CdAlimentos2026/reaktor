@@ -1079,3 +1079,8 @@ h1 .rk, h2 .rk, h3 .rk, .path h3 .rk { height: .74em; vertical-align: 0; }
 }
 .history-head h2, .tech h2, .split h2, .where h2, .biz h2 { padding-top: .06em; }
 .tl-card h3, .biz-benefits h3, .story-block h3 { line-height: 1.25; }
+
+/* Post de Instagram al final de la línea de tiempo */
+.ig-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 30px auto 0; max-width: 480px; text-align: center; }
+.ig-wrap .instagram-media { margin: 0 auto !important; width: 100% !important; min-width: 280px !important; max-width: 440px !important; border-radius: 16px !important; box-shadow: 0 0 0 2px rgba(246,213,2,.45), 0 30px 60px -20px rgba(0,0,0,.8) !important; }
+.ig-follow { margin-top: 4px; }

@@ -832,5 +832,19 @@
     tlUpdate();
   }
 
+  // Instagram: el script oficial se carga recién al acercarse al post
+  const igWrap = $('#igWrap');
+  if (igWrap) {
+    const igIO = new IntersectionObserver((en) => {
+      if (!en.some((x) => x.isIntersecting)) return;
+      igIO.disconnect();
+      if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+      const sc = document.createElement('script');
+      sc.async = true; sc.src = 'https://www.instagram.com/embed.js';
+      document.body.appendChild(sc);
+    }, { rootMargin: '800px 0px' });
+    igIO.observe(igWrap);
+  }
+
   renderCart();
 })();
