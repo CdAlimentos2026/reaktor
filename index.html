@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=14">
+    <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 
@@ -181,33 +181,30 @@
     </div>
   </section>
 
-  <!-- BENEFICIOS -->
-  <section class="benefits" id="beneficios">
-    <div class="benefits-head">
-      <p class="eyebrow dark">Lo que hay adentro</p>
-      <h2>Energía con<br>fórmula premium</h2>
-    </div>
-    <div class="benefit-grid">
-      <article class="benefit">
-        <div class="badge"><svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="5"/><path d="M16 18h16l-2 13h-3l-1 13h-4l-1-13h-3z"/></svg></div>
-        <h3>Vitaminas C, B3, B5, B6 y B12</h3>
-        <p>Ayudan a un óptimo desarrollo del organismo.</p>
-      </article>
-      <article class="benefit">
-        <div class="badge"><svg viewBox="0 0 48 48"><path d="M24 10c-3-3-9-3-11 1-4 0-6 4-4 7-3 2-3 7 1 9 0 4 4 6 7 5 2 3 5 3 7 1 2 2 5 2 7-1 3 1 7-1 7-5 4-2 4-7 1-9 2-3 0-7-4-7-2-4-8-4-11-1z"/><path d="M24 10v26" stroke="#141414" stroke-width="2" fill="none"/></svg></div>
-        <h3>Inositol</h3>
-        <p>Ayuda a la nutrición del cerebro.</p>
-      </article>
-      <article class="benefit">
-        <div class="badge"><svg viewBox="0 0 48 48"><path d="M10 34c0-8 4-16 10-20l4-6 6 2-3 6c4 0 8 3 10 7 3 6 0 13-7 13H16c-3 0-6-1-6-2z"/></svg></div>
-        <h3>Taurina</h3>
-        <p>Favorece el rendimiento.</p>
-      </article>
-      <article class="benefit">
-        <div class="badge"><svg viewBox="0 0 48 48"><path d="M4 24c5-8 12-13 20-13s15 5 20 13c-5 8-12 13-20 13S9 32 4 24z"/><circle cx="24" cy="24" r="7" fill="#141414"/></svg></div>
-        <h3>Cafeína</h3>
-        <p>Agudiza tu percepción y concentración.</p>
-      </article>
+  <!-- BENEFICIOS · Tecnología de la energía -->
+  <section class="formula-sec" id="beneficios" data-audience="consumer">
+    <div class="formula-inner">
+      <div class="tech">
+        <div class="tech-visual" aria-hidden="true">
+          <img src="halo-reaktor.png?v=1" alt="" class="tech-halo">
+          <img src="bottle-hd.webp" alt="" class="tech-bottle" loading="lazy">
+        </div>
+        <div class="tech-body">
+          <p class="eyebrow">Tecnología de la energía</p>
+          <h2>Una fórmula<br>con potencia de reactor</h2>
+          <ul class="tech-list">
+            <li><b>Cafeína</b><span>Agudiza la percepción y la concentración.</span></li>
+            <li><b>Taurina</b><span>Favorece el rendimiento cuando más lo necesitás.</span></li>
+            <li><b>Vitaminas C, B3, B5, B6 y B12</b><span>Ayudan a un óptimo desarrollo del organismo.</span></li>
+            <li><b>Inositol</b><span>Ayuda a la nutrición del cerebro.</span></li>
+          </ul>
+          <p class="tech-resp"><b>Consumo responsable:</b> Reaktor te acompaña en el día a día, en su justa medida. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
+          <div class="tech-ctas">
+            <a href="#comprar" class="btn btn-yellow">Comprar acá</a>
+            <a href="#conoce" class="btn btn-ghost story-open">Más sobre la marca</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -293,27 +290,6 @@
         </li>
       </ol>
 
-      <div class="tech">
-        <div class="tech-visual" aria-hidden="true">
-          <img src="halo-reaktor.png?v=1" alt="" class="tech-halo">
-          <img src="bottle-hd.webp" alt="" class="tech-bottle" loading="lazy">
-        </div>
-        <div class="tech-body">
-          <p class="eyebrow">Tecnología de la energía</p>
-          <h2>Una fórmula<br>con potencia de reactor</h2>
-          <ul class="tech-list">
-            <li><b>Cafeína</b><span>Agudiza la percepción y la concentración.</span></li>
-            <li><b>Taurina</b><span>Favorece el rendimiento cuando más lo necesitás.</span></li>
-            <li><b>Vitaminas C, B3, B5, B6 y B12</b><span>Ayudan a un óptimo desarrollo del organismo.</span></li>
-            <li><b>Inositol</b><span>Ayuda a la nutrición del cerebro.</span></li>
-          </ul>
-          <p class="tech-resp"><b>Consumo responsable:</b> Reaktor te acompaña en el día a día, en su justa medida. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
-          <div class="tech-ctas">
-            <a href="#comprar" class="btn btn-yellow">Comprar acá</a>
-            <a href="#conoce" class="btn btn-ghost story-open">Más sobre la marca</a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -644,6 +620,6 @@
   </div>
 
 
-  <script src="app.js?v=18"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>

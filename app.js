@@ -493,7 +493,7 @@
      SNAP SUAVE: al dejar de scrollear, la página se acomoda en la
      sección más cercana (nunca queda mitad y mitad). El hero no se toca.
      ========================================================= */
-  const snapSections = () => [...document.querySelectorAll('.split, .benefits, .history, .where, .biz, .faq')];
+  const snapSections = () => [...document.querySelectorAll('.split, .formula-sec, .history, .where, .biz, .faq')];
   let snapT;
   // Snap por dirección: un scroll corto hacia abajo lleva a la sección siguiente,
   // uno hacia arriba a la anterior (no hace falta "empujar" media pantalla).
@@ -834,7 +834,7 @@
     const items = [...timeline.querySelectorAll('.tl-item')];
     const tlUpdate = () => {
       const r = timeline.getBoundingClientRect();
-      const mid = window.innerHeight * 0.6;
+      const mid = window.innerHeight * 0.8;
       const p = clamp((mid - r.top) / r.height);
       fill.style.height = `${p * 100}%`;
       items.forEach((it) => {
