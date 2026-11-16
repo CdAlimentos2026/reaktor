@@ -9,7 +9,7 @@
   const FPS = 24;
   // Un solo archivo de video (todos los cuadros son keyframes → se puede adelantar
   // y retroceder cuadro a cuadro). 1920px en escritorio, 1280px en móvil.
-  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=5' : 'hero.mp4?v=4'; // subir ?v= cada vez que cambie el video
+  const VIDEO_SRC = window.matchMedia('(max-width: 820px)').matches ? 'hero-m.mp4?v=6' : 'hero.mp4?v=4'; // subir ?v= cada vez que cambie el video
   const VIDEO_END = 0.84;    // % del recorrido del hero que ocupa el video
   const REVEAL_LEN = 0.16;   // % del recorrido en el que aparece el panel de compra
   const PLAY_MS = 5400;      // duración de la reproducción automática con 1 scroll
@@ -184,17 +184,9 @@
   }
 
   // [cuadro, foco horizontal 0..1] para pantallas angostas
-  // En celular el video arranca con "PUSH YOUR LIMITS" pintado en el muro
-  const PAINTED = VIDEO_SRC.includes('hero-m');
-  const CAM = PAINTED
-    ? [[0, 0.085], [8, 0.085], [16, 0.2], [24, 0.27], [40, 0.2], [70, 0.27], [88, 0.3], [100, 0.72], [124, 0.72], [142, 0.72], [180, 0.82], [FRAME_COUNT - 1, 0.86]]
-    : [[0, 0.73], [10, 0.73], [20, 0.27], [40, 0.2], [70, 0.27], [88, 0.3], [100, 0.72], [124, 0.72], [142, 0.72], [180, 0.82], [FRAME_COUNT - 1, 0.86]];
-  // celular: al scrollear el muro pintado se agranda (acercamiento) antes del golpe
-  const ZOOM = PAINTED ? [[0, 1], [10, 1.35], [18, 1.12], [26, 1]] : [[0, 1], [1, 1]];
+  const CAM = [[0, 0.73], [10, 0.73], [20, 0.27], [40, 0.2], [70, 0.27], [88, 0.3], [100, 0.72], [124, 0.72], [142, 0.72], [180, 0.82], [FRAME_COUNT - 1, 0.86]];
   // cuánto se aleja la cámara del celular para que entre "PUSH YOUR LIMITS" completo (1 = titular entero)
-  const WIDE = PAINTED
-    ? [[0, 0], [88, 0], [100, 1], [126, 1], [146, 0], [FRAME_COUNT - 1, 0]]
-    : [[0, 1], [10, 1], [22, 0], [88, 0], [100, 1], [126, 1], [146, 0], [FRAME_COUNT - 1, 0]];
+  const WIDE = [[0, 1], [10, 1], [22, 0], [88, 0], [100, 1], [126, 1], [146, 0], [FRAME_COUNT - 1, 0]];
   function kf(arr, i) {
     for (let n = 1; n < arr.length; n++) {
       if (i <= arr[n][0]) {
@@ -229,8 +221,7 @@
     const zFit = Math.min(1, vis0 / 0.46);
     const wide = kf(WIDE, i);
     const zMob = zFit + (1 - zFit) * (1 - wide);
-    const zoomIn = 1 + (kf(ZOOM, i) - 1) * (1 - k0);
-    const scale = cover * (1 - (1 - zMob) * (1 - k0)) * zoomIn;
+    const scale = cover * (1 - (1 - zMob) * (1 - k0));
     const dw = iw * scale, dh = ih * scale;
     // en pantallas angostas seguimos la acción: texto/hombre → botella
     // intro: arranca sobre el muro (izquierda); después sigue al hombre, el texto y la botella
