@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cdalimentos2026.github.io/reaktor/sitemap.xml

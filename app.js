@@ -184,7 +184,19 @@
   }
 
   // [cuadro, foco horizontal 0..1] para pantallas angostas
-  const CAM = [[0, 0.73], [10, 0.73], [20, 0.27], [40, 0.2], [70, 0.27], [90, 0.3], [112, 0.52], [140, 0.7], [180, 0.82], [FRAME_COUNT - 1, 0.86]];
+  const CAM = [[0, 0.73], [10, 0.73], [20, 0.27], [40, 0.2], [70, 0.27], [88, 0.3], [100, 0.72], [124, 0.72], [142, 0.72], [180, 0.82], [FRAME_COUNT - 1, 0.86]];
+  // cuánto se aleja la cámara del celular para que entre "PUSH YOUR LIMITS" completo (1 = titular entero)
+  const WIDE = [[0, 1], [10, 1], [22, 0], [88, 0], [100, 1], [126, 1], [146, 0], [FRAME_COUNT - 1, 0]];
+  function kf(arr, i) {
+    for (let n = 1; n < arr.length; n++) {
+      if (i <= arr[n][0]) {
+        const [a, fa] = arr[n - 1], [b, fb] = arr[n];
+        const t = clamp((i - a) / (b - a)); const e = t * t * (3 - 2 * t);
+        return fa + (fb - fa) * e;
+      }
+    }
+    return arr[arr.length - 1][1];
+  }
   function camFollow(i) {
     for (let n = 1; n < CAM.length; n++) {
       if (i <= CAM[n][0]) {
@@ -207,8 +219,8 @@
     // celular: al inicio se aleja un poco para que entre el titular completo,
     // y se acerca a la acción cuando el puño rompe el muro
     const zFit = Math.min(1, vis0 / 0.46);
-    const zt = clamp((i - 10) / 12), ze = zt * zt * (3 - 2 * zt);
-    const zMob = zFit + (1 - zFit) * ze;
+    const wide = kf(WIDE, i);
+    const zMob = zFit + (1 - zFit) * (1 - wide);
     const scale = cover * (1 - (1 - zMob) * (1 - k0));
     const dw = iw * scale, dh = ih * scale;
     // en pantallas angostas seguimos la acción: texto/hombre → botella
@@ -223,7 +235,7 @@
     let focusX = desk * k + camFollow(i) * (1 - k);
     // al inicio, que el titular entre completo (borde derecho del texto ≈ 95% del cuadro)
     const need = 0.955 - (cw / dw) / 2;
-    focusX += (Math.max(focusX, need) - focusX) * (1 - ze);
+    focusX += (Math.max(focusX, need) - focusX) * wide;
     const dx = Math.min(0, Math.max(cw - dw, cw / 2 - dw * focusX));
     const dy = (ch - dh) / 2;
     ctx.imageSmoothingEnabled = true;
@@ -329,14 +341,14 @@
   }
 
   window.addEventListener('wheel', (e) => {
-    if (document.body.classList.contains('cart-open') || Math.abs(e.deltaY) < 1) return;
+    if (document.body.classList.contains('cart-open') || document.body.classList.contains('modal-open') || Math.abs(e.deltaY) < 1) return;
     if (intent(Math.sign(e.deltaY))) e.preventDefault();
   }, { passive: false });
 
   let touchY = null;
   window.addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
   window.addEventListener('touchmove', (e) => {
-    if (touchY === null || document.body.classList.contains('cart-open')) return;
+    if (touchY === null || document.body.classList.contains('cart-open') || document.body.classList.contains('modal-open')) return;
     const dy = touchY - e.touches[0].clientY;
     if (playing || performance.now() < lockUntil) { e.preventDefault(); return; }
     if (Math.abs(dy) > 10 && intent(Math.sign(dy))) { e.preventDefault(); touchY = null; }
@@ -344,7 +356,7 @@
   window.addEventListener('touchend', () => { touchY = null; }, { passive: true });
 
   window.addEventListener('keydown', (e) => {
-    if (e.target.closest('input, textarea, select, button')) return;
+    if (e.target.closest('input, textarea, select, button') || document.body.classList.contains('modal-open')) return;
     const down = ['ArrowDown', 'PageDown', ' '].includes(e.key);
     const up = ['ArrowUp', 'PageUp'].includes(e.key);
     if ((down || up) && intent(down ? 1 : -1)) e.preventDefault();
@@ -525,37 +537,99 @@
      Cargar acá los comercios adheridos (opt-in). Los "demo" son
      solo para mostrar la estructura: borrarlos al cargar datos reales.
      ========================================================= */
+  // city = provincia · zone = localidad · lat/lng = coordenadas del local (para el mapa)
+  // Los "demo" muestran la estructura: reemplazarlos por los comercios reales.
   const STORES = [
-    // city = provincia · zone = localidad
-    { name: 'Nombre del comercio', city: 'Salta', zone: 'Localidad', address: 'Dirección del local', demo: true },
-    { name: 'Nombre del comercio', city: 'Tucumán', zone: 'Localidad', address: 'Dirección del local', demo: true },
-    { name: 'Nombre del comercio', city: 'Jujuy', zone: 'Localidad', address: 'Dirección del local', demo: true },
+    { name: 'Nombre del comercio', city: 'Salta', zone: 'Localidad', address: 'Dirección del local', lat: -24.7883, lng: -65.4106, demo: true },
+    { name: 'Nombre del comercio', city: 'Tucumán', zone: 'Localidad', address: 'Dirección del local', lat: -26.8241, lng: -65.2226, demo: true },
+    { name: 'Nombre del comercio', city: 'Jujuy', zone: 'Localidad', address: 'Dirección del local', lat: -24.1858, lng: -65.2995, demo: true },
   ];
+  // centro de cada provincia (capital) para acercar el mapa al filtrar
+  const PROV = {
+    'Jujuy': [-24.19, -65.30], 'Salta': [-24.79, -65.41], 'Tucumán': [-26.81, -65.22],
+    'Catamarca': [-28.47, -65.78], 'La Rioja': [-29.41, -66.86], 'Santiago del Estero': [-27.80, -64.26],
+    'Formosa': [-26.18, -58.18], 'Chaco': [-27.45, -58.99], 'Corrientes': [-27.47, -58.83], 'Misiones': [-27.37, -55.90],
+  };
   const cityFilter = $('#cityFilter');
   const storeSearch = $('#storeSearch');
   const storeList = $('#storeList');
   const storeEmpty = $('#storeEmpty');
+  const mapEl = $('#storeMap');
   const norm = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let map = null, markerLayer = null, visible = [];
 
-  function renderStores() {
+  function filtered() {
     const city = cityFilter.value;
     const q = norm(storeSearch.value.trim());
-    const list = STORES.filter((st) => (!city || st.city === city) &&
-      (!q || norm(`${st.name} ${st.zone} ${st.address}`).includes(q)));
-    storeList.innerHTML = list.map((st) => `
-      <li class="store">
+    return STORES.filter((st) => (!city || st.city === city) &&
+      (!q || norm(`${st.name} ${st.zone} ${st.address} ${st.city}`).includes(q)));
+  }
+  function renderStores() {
+    visible = filtered();
+    storeList.innerHTML = visible.map((st, n) => `
+      <li class="store" data-i="${n}" tabindex="0">
         <div>
           <b>${esc(st.name)}</b>${st.demo ? '<span class="demo-tag">Ejemplo</span>' : ''}
           <p>${esc(st.address)} · ${esc(st.zone)}</p>
         </div>
         <span class="store-city">${esc(st.city)}</span>
       </li>`).join('');
-    storeEmpty.hidden = list.length > 0;
+    storeEmpty.hidden = visible.length > 0;
+    renderMap();
   }
+  function renderMap() {
+    if (!map || !window.L) return;
+    markerLayer.clearLayers();
+    const pts = [];
+    visible.forEach((st, n) => {
+      if (typeof st.lat !== 'number') return;
+      const m = L.marker([st.lat, st.lng], { icon: L.divIcon({ className: 'pin', html: '<i></i>', iconSize: [22, 22], iconAnchor: [11, 11] }) })
+        .bindPopup(`<b>${esc(st.name)}</b><br>${esc(st.address)} · ${esc(st.zone)}`);
+      m.on('click', () => highlight(n));
+      markerLayer.addLayer(m); st._m = m; pts.push([st.lat, st.lng]);
+    });
+    const city = cityFilter.value;
+    if (pts.length) map.flyToBounds(L.latLngBounds(pts).pad(0.4), { maxZoom: city ? 12 : 6, duration: 0.8 });
+    else if (city && PROV[city]) map.flyTo(PROV[city], 9, { duration: 0.8 });
+    else map.flyTo([-26.5, -62], 5, { duration: 0.8 });
+  }
+  function highlight(n) {
+    storeList.querySelectorAll('.store').forEach((li) => li.classList.toggle('on', Number(li.dataset.i) === n));
+  }
+  storeList.addEventListener('click', (e) => {
+    const li = e.target.closest('.store'); if (!li) return;
+    const st = visible[Number(li.dataset.i)];
+    highlight(Number(li.dataset.i));
+    if (map && st && st._m) { map.flyTo([st.lat, st.lng], 14, { duration: 0.8 }); st._m.openPopup(); }
+  });
   cityFilter.addEventListener('change', renderStores);
   storeSearch.addEventListener('input', renderStores);
   renderStores();
+
+  // Leaflet + OpenStreetMap: se carga recién al acercarse a "Dónde comprar"
+  function loadMap() {
+    if (map || !mapEl) return;
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(css);
+    const js = document.createElement('script');
+    js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    js.onload = () => {
+      map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView([-26.5, -62], 5);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+      markerLayer = L.layerGroup().addTo(map);
+      renderMap();
+    };
+    js.onerror = () => { mapEl.hidden = true; };
+    document.head.appendChild(js);
+  }
+  const mapIO = new IntersectionObserver((en) => { if (en.some((x) => x.isIntersecting)) { loadMap(); mapIO.disconnect(); } }, { rootMargin: '600px 0px' });
+  if (mapEl) mapIO.observe(mapEl);
 
   /* =========================================================
      FAQ CON PESTAÑAS
@@ -618,6 +692,49 @@
   let bubbleGone = false, bubbleTimer = 0;
   window.addEventListener('scroll', waToggle, { passive: true });
   waToggle();
+
+  /* =========================================================
+     VENTANAS: "Conocé Reaktor" y "Otros países de Latinoamérica"
+     ========================================================= */
+  let lastFocus = null;
+  function openModal(id) {
+    const m = document.getElementById(id); if (!m) return;
+    closeCart();
+    lastFocus = document.activeElement;
+    m.hidden = false;
+    requestAnimationFrame(() => m.classList.add('open'));
+    document.body.classList.add('modal-open');
+    const f = m.querySelector('.modal-close'); if (f) f.focus({ preventScroll: true });
+  }
+  function closeModal(m) {
+    if (!m || m.hidden) return;
+    m.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    setTimeout(() => { m.hidden = true; }, 300);
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+  document.querySelectorAll('.story-open').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal('storyModal'); }));
+  document.querySelectorAll('.latam-open').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal('latamModal'); }));
+  document.querySelectorAll('.modal').forEach((m) => {
+    m.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeModal(m); });
+    m.querySelectorAll('[data-close-go]').forEach((a) => a.addEventListener('click', () => closeModal(m)));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal);
+  });
+
+  // Otros países: arma el mensaje y lo abre en WhatsApp (llega al equipo, que lo deriva)
+  const latamForm = $('#latamForm');
+  latamForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!latamForm.reportValidity()) return;
+    const d = new FormData(latamForm);
+    const txt = `Hola Reaktor, les escribo desde ${d.get('pais')} (${d.get('zona')}). Soy ${d.get('nombre')}. ${d.get('mensaje')}`;
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
+    latamForm.reset();
+    closeModal($('#latamModal'));
+    toast('¡Gracias! Te respondemos a la brevedad.');
+  });
 
   renderCart();
 })();
