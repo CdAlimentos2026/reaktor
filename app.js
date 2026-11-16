@@ -493,7 +493,7 @@
      SNAP SUAVE: al dejar de scrollear, la página se acomoda en la
      sección más cercana (nunca queda mitad y mitad). El hero no se toca.
      ========================================================= */
-  const snapSections = () => [...document.querySelectorAll('.split, .benefits, .where, .biz, .faq')];
+  const snapSections = () => [...document.querySelectorAll('.split, .benefits, .history, .where, .biz, .faq')];
   let snapT;
   // Snap por dirección: un scroll corto hacia abajo lleva a la sección siguiente,
   // uno hacia arriba a la anterior (no hace falta "empujar" media pantalla).
@@ -747,7 +747,8 @@
     e.preventDefault();
     if (!latamForm.reportValidity()) return;
     const d = new FormData(latamForm);
-    const txt = `Hola Reaktor, les escribo desde ${d.get('pais')} (${d.get('zona')}). Soy ${d.get('nombre')}. ${d.get('mensaje')}`;
+    const wa = d.get('whatsapp') ? ` Mi WhatsApp: ${dialOf(latamForm)} ${d.get('whatsapp')}.` : '';
+    const txt = `Hola Reaktor, les escribo desde ${d.get('pais')} (${d.get('zona')}). Soy ${d.get('nombre')}.${wa} ${d.get('mensaje')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
     latamForm.reset();
     closeModal($('#latamModal'));
@@ -760,15 +761,33 @@
      ========================================================= */
   const joinTabs = { ar: $('#joinTabAr'), lat: $('#joinTabLat') };
   const joinForms = { ar: $('#joinAr'), lat: $('#joinLat') };
+  const joinPanels = { ar: $('#panelAr'), lat: $('#panelLat') };
   function selectJoin(k) {
     Object.keys(joinTabs).forEach((key) => {
       const on = key === k;
       joinTabs[key].setAttribute('aria-selected', on);
-      joinForms[key].hidden = !on;
+      joinPanels[key].hidden = !on;
     });
-    const first = joinForms[k].querySelector('input:not([type=radio]), select');
-    if (first) setTimeout(() => first.focus({ preventScroll: true }), 50);
+    settledY = window.scrollY; // que el snap no mueva la página al desplegar
   }
+
+  // Países de Latinoamérica con su código telefónico (se completa solo al elegir)
+  const LATAM = [
+    ['Bolivia', '+591'], ['Brasil', '+55'], ['Chile', '+56'], ['Colombia', '+57'], ['Costa Rica', '+506'],
+    ['Cuba', '+53'], ['Ecuador', '+593'], ['El Salvador', '+503'], ['Guatemala', '+502'], ['Haití', '+509'],
+    ['Honduras', '+504'], ['México', '+52'], ['Nicaragua', '+505'], ['Panamá', '+507'], ['Paraguay', '+595'],
+    ['Perú', '+51'], ['Puerto Rico', '+1'], ['República Dominicana', '+1'], ['Uruguay', '+598'], ['Venezuela', '+58'],
+  ];
+  document.querySelectorAll('select[data-latam]').forEach((sel) => {
+    sel.innerHTML = '<option value="">Elegí tu país</option>' +
+      LATAM.map(([n, c]) => `<option value="${n}" data-dial="${c}">${n} (${c})</option>`).join('');
+    const dial = sel.closest('form').querySelector('[data-prefix]');
+    sel.addEventListener('change', () => {
+      const o = sel.selectedOptions[0];
+      if (dial) dial.textContent = (o && o.dataset.dial) || '+ ···';
+    });
+  });
+  const dialOf = (form) => { const o = form.querySelector('select[data-latam]').selectedOptions[0]; return (o && o.dataset.dial) || ''; };
   joinTabs.ar.addEventListener('click', () => selectJoin('ar'));
   joinTabs.lat.addEventListener('click', () => selectJoin('lat'));
 
@@ -800,11 +819,33 @@
       `Ciudad: ${d.get('ciudad')}`,
       `Nombre: ${d.get('nombre')}`,
       d.get('negocio') && `Negocio: ${d.get('negocio')}`,
-      `WhatsApp: ${d.get('whatsapp')}`,
+      `WhatsApp: ${dialOf(joinForms.lat)} ${d.get('whatsapp')}`,
       d.get('email') && `Email: ${d.get('email')}`,
       d.get('mensaje') && `Mensaje: ${d.get('mensaje')}`,
     ]);
   });
+
+  /* =========================================================
+     LÍNEA DE TIEMPO: se "carga" de energía al scrollear
+     ========================================================= */
+  const timeline = $('#timeline');
+  if (timeline) {
+    const fill = timeline.querySelector('.tl-fill');
+    const items = [...timeline.querySelectorAll('.tl-item')];
+    const tlUpdate = () => {
+      const r = timeline.getBoundingClientRect();
+      const mid = window.innerHeight * 0.6;
+      const p = clamp((mid - r.top) / r.height);
+      fill.style.height = `${p * 100}%`;
+      items.forEach((it) => {
+        const ir = it.getBoundingClientRect();
+        it.classList.toggle('on', ir.top + 30 < mid);
+      });
+    };
+    window.addEventListener('scroll', tlUpdate, { passive: true });
+    window.addEventListener('resize', tlUpdate);
+    tlUpdate();
+  }
 
   renderCart();
 })();
