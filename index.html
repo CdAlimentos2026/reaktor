@@ -57,7 +57,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=21">
+    <link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 
@@ -84,7 +84,7 @@
     <nav class="nav-links" id="navLinks">
       <a href="#reaktor">Reaktivate</a>
       <a href="#comprar">Comprar online</a>
-      <a href="#donde-comprar">Dónde encontrarla</a>
+      <a href="#" class="wa-link" data-wa="local">Comprar en un local</a>
       <a href="#comercios" data-join="shop">Comercios</a>
       <a href="#faq">Preguntas</a>
       <a href="#comercios" data-join="dist" class="nav-dist">Quiero ser distribuidor</a>
@@ -199,7 +199,7 @@
             </div>
             <div class="ver-ctas">
               <a href="#comprar" class="btn btn-yellow">Comprar online</a>
-              <a href="#donde-comprar" class="btn btn-ghost">Dónde encontrarla</a>
+              <a href="#" class="wa-link btn btn-ghost" data-wa="local">Quiero ir físicamente a comprarla</a>
             </div>
           </div>
         </article>
@@ -279,7 +279,7 @@
           <p class="tech-resp"><b>Consumo responsable:</b> <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> te acompaña en el día a día, en su justa medida. No recomendado para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p>
           <div class="tech-ctas">
             <a href="#comprar" class="btn btn-yellow">Comprar online</a>
-            <a href="#donde-comprar" class="btn btn-ghost">Dónde encontrarla</a>
+            <a href="#" class="wa-link btn btn-ghost" data-wa="local">Quiero ir físicamente a comprarla</a>
           </div>
         </div>
       </div>
@@ -294,10 +294,10 @@
       <article class="path path-consumer" data-audience="consumer">
         <span class="path-tag">Para vos</span>
         <h3>Quiero tomarla</h3>
-        <p>Pedila online y te la llevamos, o buscá el punto de venta más cerca tuyo.</p>
+        <p>Pedila online y te la llevamos, o escribinos y te decimos dónde comprarla en persona.</p>
         <div class="path-ctas">
           <a href="#comprar" class="btn btn-dark">Comprar online</a>
-          <a href="#donde-comprar" class="btn btn-ghost-dark">Dónde encontrarla</a>
+          <a href="#" class="wa-link btn btn-ghost-dark" data-wa="local">Quiero ir físicamente a comprarla</a>
         </div>
       </article>
       <article class="path path-business" data-audience="business">
@@ -309,42 +309,6 @@
           <a href="#comercios" data-join="dist" class="btn btn-ghost">Quiero ser distribuidor</a>
         </div>
       </article>
-    </div>
-  </section>
-
-  <!-- DÓNDE COMPRAR -->
-  <section class="where" id="donde-comprar" data-audience="consumer">
-    <div class="where-inner">
-      <div class="where-head">
-        <p class="eyebrow dark">Dónde encontrarla</p>
-        <h2>Encontrá <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"><br>cerca tuyo</h2>
-        <p class="where-copy">Elegí tu provincia y mirá los puntos de venta. ¿No hay uno cerca? Pedila online.</p>
-      </div>
-      <div class="where-tool">
-        <div class="where-search">
-          <label for="cityFilter" class="sr-only">Provincia</label>
-          <select id="cityFilter">
-            <option value="">Todas las provincias</option>
-            <optgroup label="NOA">
-              <option>Jujuy</option><option>Salta</option><option>Tucumán</option>
-              <option>Catamarca</option><option>La Rioja</option><option>Santiago del Estero</option>
-            </optgroup>
-            <optgroup label="NEA">
-              <option>Formosa</option><option>Chaco</option><option>Corrientes</option><option>Misiones</option>
-            </optgroup>
-          </select>
-          <input id="storeSearch" type="search" placeholder="Buscá por localidad o comercio" aria-label="Buscar por localidad o comercio">
-        </div>
-        <div class="store-map" id="storeMap" role="region" aria-label="Mapa de puntos de venta"></div>
-        <ul class="store-list" id="storeList" aria-live="polite"></ul>
-        <div class="store-empty" id="storeEmpty" hidden>
-          <p><b>Todavía no hay puntos de venta en esta zona.</b></p>
-          <div class="store-empty-ctas">
-            <a href="#comprar" class="btn btn-dark">Pedila online</a>
-            <a href="#comercios" data-join="shop" class="btn btn-ghost-dark">¿Tenés un comercio? Sumate</a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -469,7 +433,7 @@
         <details><summary>¿En qué formatos viene?</summary><p><img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> Original viene en botella de 1,5 L. <span class="tbd">Segundo formato a confirmar.</span></p></details>
         <details><summary>¿Quiénes no deberían tomarla?</summary><p>No se recomienda para niños, embarazadas, mujeres en período de lactancia ni personas sensibles a la cafeína.</p></details>
         <details><summary>¿Hacen envíos?</summary><p>Sí: envío a domicilio en las provincias del norte habilitadas y retiro en tienda. <span class="tbd">Localidades a confirmar.</span></p></details>
-        <details><summary>¿Dónde la consigo si no compro online?</summary><p>En los puntos de venta de <a href="#donde-comprar">Dónde encontrarla</a>.</p></details>
+        <details><summary>¿Dónde la consigo si no compro online?</summary><p>Tocá <a href="#" class="wa-link" data-wa="local">Quiero ir físicamente a comprarla</a>, decinos dónde estás y te pasamos por WhatsApp el local más cercano.</p></details>
       </div>
       <div class="faq-panel" id="faqBusiness" role="tabpanel" aria-labelledby="tabBusiness" data-audience="business" hidden>
         <details><summary>¿Cuál es la diferencia entre comercio y distribuidor?</summary><p>El comercio compra <img class="rk" src="logo-reaktor-wordmark.png?v=1" alt="Reaktor"> para venderla en su local (kiosco, almacén, gimnasio, bar). El distribuidor la lleva a los comercios de una zona o un país.</p></details>
@@ -499,7 +463,7 @@
         <a href="#reaktor">Reaktivate</a>
         <a href="#beneficios">Activos y vitaminas</a>
         <a href="#comprar">Comprar online</a>
-        <a href="#donde-comprar">Dónde encontrarla</a>
+        <a href="#" class="wa-link" data-wa="local">Comprar en un local</a>
         <a href="#faq">Preguntas frecuentes</a>
       </div>
       <div>
@@ -550,6 +514,6 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

@@ -499,7 +499,7 @@
      SNAP SUAVE: al dejar de scrollear, la página se acomoda en la
      sección más cercana (nunca queda mitad y mitad). El hero no se toca.
      ========================================================= */
-  const snapSections = () => [...document.querySelectorAll('.split, .formula-sec, .history, .where, .biz, .faq')];
+  const snapSections = () => [...document.querySelectorAll('.split, .formula-sec, .history, .biz, .faq')];
   let snapT;
   // Snap por dirección: un scroll corto hacia abajo lleva a la sección siguiente,
   // uno hacia arriba a la anterior (no hace falta "empujar" media pantalla).
@@ -560,7 +560,7 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
   document.addEventListener('click', (e) => { if (!e.target.closest('.nav')) setMenu(false); });
   // "Comprar online" (#comprar) también cierra el menú
-  document.querySelectorAll('a[href="#comprar"]').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.querySelectorAll('a[href="#comprar"], .nav .wa-link').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   /* =========================================================
      LINKS INTERNOS (scroll suave a secciones fuera del hero)
@@ -579,105 +579,6 @@
       window.scrollTo({ top: goal, behavior: 'smooth' });
     });
   });
-
-  /* =========================================================
-     DÓNDE COMPRAR
-     Cargar acá los comercios adheridos (opt-in). Los "demo" son
-     solo para mostrar la estructura: borrarlos al cargar datos reales.
-     ========================================================= */
-  // city = provincia · zone = localidad · lat/lng = coordenadas del local (para el mapa)
-  // Los "demo" muestran la estructura: reemplazarlos por los comercios reales.
-  const STORES = [
-    { name: 'Nombre del comercio', city: 'Salta', zone: 'Localidad', address: 'Dirección del local', lat: -24.7883, lng: -65.4106, demo: true },
-    { name: 'Nombre del comercio', city: 'Tucumán', zone: 'Localidad', address: 'Dirección del local', lat: -26.8241, lng: -65.2226, demo: true },
-    { name: 'Nombre del comercio', city: 'Jujuy', zone: 'Localidad', address: 'Dirección del local', lat: -24.1858, lng: -65.2995, demo: true },
-  ];
-  // centro de cada provincia (capital) para acercar el mapa al filtrar
-  const PROV = {
-    'Jujuy': [-24.19, -65.30], 'Salta': [-24.79, -65.41], 'Tucumán': [-26.81, -65.22],
-    'Catamarca': [-28.47, -65.78], 'La Rioja': [-29.41, -66.86], 'Santiago del Estero': [-27.80, -64.26],
-    'Formosa': [-26.18, -58.18], 'Chaco': [-27.45, -58.99], 'Corrientes': [-27.47, -58.83], 'Misiones': [-27.37, -55.90],
-  };
-  const cityFilter = $('#cityFilter');
-  const storeSearch = $('#storeSearch');
-  const storeList = $('#storeList');
-  const storeEmpty = $('#storeEmpty');
-  const mapEl = $('#storeMap');
-  const norm = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-  const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  let map = null, markerLayer = null, visible = [];
-
-  function filtered() {
-    const city = cityFilter.value;
-    const q = norm(storeSearch.value.trim());
-    return STORES.filter((st) => (!city || st.city === city) &&
-      (!q || norm(`${st.name} ${st.zone} ${st.address} ${st.city}`).includes(q)));
-  }
-  function renderStores() {
-    visible = filtered();
-    storeList.innerHTML = visible.map((st, n) => `
-      <li class="store" data-i="${n}" tabindex="0">
-        <div>
-          <b>${esc(st.name)}</b>${st.demo ? '<span class="demo-tag">Ejemplo</span>' : ''}
-          <p>${esc(st.address)} · ${esc(st.zone)}</p>
-        </div>
-        <span class="store-city">${esc(st.city)}</span>
-      </li>`).join('');
-    storeEmpty.hidden = visible.length > 0;
-    renderMap();
-  }
-  function renderMap() {
-    if (!map || !window.L) return;
-    markerLayer.clearLayers();
-    const pts = [];
-    visible.forEach((st, n) => {
-      if (typeof st.lat !== 'number') return;
-      const m = L.marker([st.lat, st.lng], { icon: L.divIcon({ className: 'pin', html: '<i></i>', iconSize: [22, 22], iconAnchor: [11, 11] }) })
-        .bindPopup(`<b>${esc(st.name)}</b><br>${esc(st.address)} · ${esc(st.zone)}`);
-      m.on('click', () => highlight(n));
-      markerLayer.addLayer(m); st._m = m; pts.push([st.lat, st.lng]);
-    });
-    const city = cityFilter.value;
-    if (pts.length) map.flyToBounds(L.latLngBounds(pts).pad(0.4), { maxZoom: city ? 12 : 6, duration: 0.8 });
-    else if (city && PROV[city]) map.flyTo(PROV[city], 9, { duration: 0.8 });
-    else map.flyTo([-26.5, -62], 5, { duration: 0.8 });
-  }
-  function highlight(n) {
-    storeList.querySelectorAll('.store').forEach((li) => li.classList.toggle('on', Number(li.dataset.i) === n));
-  }
-  storeList.addEventListener('click', (e) => {
-    const li = e.target.closest('.store'); if (!li) return;
-    const st = visible[Number(li.dataset.i)];
-    highlight(Number(li.dataset.i));
-    if (map && st && st._m) { map.flyTo([st.lat, st.lng], 14, { duration: 0.8 }); st._m.openPopup(); }
-  });
-  cityFilter.addEventListener('change', renderStores);
-  storeSearch.addEventListener('input', renderStores);
-  renderStores();
-
-  // Leaflet + OpenStreetMap: se carga recién al acercarse a "Dónde comprar"
-  function loadMap() {
-    if (map || !mapEl) return;
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
-    document.head.appendChild(css);
-    const js = document.createElement('script');
-    js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-    js.onload = () => {
-      map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView([-26.5, -62], 5);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(map);
-      markerLayer = L.layerGroup().addTo(map);
-      renderMap();
-    };
-    js.onerror = () => { mapEl.hidden = true; };
-    document.head.appendChild(js);
-  }
-  const mapIO = new IntersectionObserver((en) => { if (en.some((x) => x.isIntersecting)) { loadMap(); mapIO.disconnect(); } }, { rootMargin: '600px 0px' });
-  if (mapEl) mapIO.observe(mapEl);
 
   /* =========================================================
      FAQ CON PESTAÑAS
@@ -708,7 +609,8 @@
   const WA_NUMBER = '549XXXXXXXXXX'; // completar: 54 9 + código de área sin 0 + número sin 15 (ej. 5493871234567)
   const WA_MSG = {
     consumer: { text: 'Hola Reaktor, quiero hacer una consulta sobre el producto.' },
-    business: { text: 'Hola Reaktor, tengo un comercio en el norte argentino y quiero ser distribuidor. Provincia: , Localidad: , Tipo de negocio: ' },
+    business: { text: 'Hola Reaktor, quiero vender Reaktor en mi negocio. Provincia: , Localidad: , Tipo de negocio: ' },
+    local: { text: 'Hola Reaktor, quiero ir a comprarla en persona. ¿Dónde la consigo? Estoy en (localidad y provincia): ' },
   };
   const waFloat = $('#waFloat');
   const waBubble = $('#waBubble');

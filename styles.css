@@ -909,15 +909,6 @@ body.modal-open { overflow: hidden; }
 .latam-form input, .latam-form select { height: 48px; padding-top: 0; padding-bottom: 0; }
 .latam-form :focus { outline: none; border-color: var(--yellow); }
 
-/* mapa */
-.store-map { height: 280px; border-radius: 14px; overflow: hidden; margin-bottom: 12px; background: #1a1a1a; border: 1px solid rgba(255,255,255,.1); }
-.store-map[hidden] { display: none; }
-.store { cursor: pointer; transition: background .25s ease, outline-color .25s ease; outline: 2px solid transparent; }
-.store:hover, .store.on { background: #222; outline-color: rgba(246,213,2,.6); }
-.pin i { display: block; width: 22px; height: 22px; border-radius: 50%; background: var(--yellow); border: 3px solid #0d0d0d; box-shadow: 0 0 0 3px rgba(246,213,2,.45), 0 4px 10px rgba(0,0,0,.5); }
-.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #111; color: #fff; }
-.leaflet-popup-content { font: 500 13px var(--body); }
-.leaflet-container a.leaflet-popup-close-button { color: #fff; }
 
 @media (max-width: 820px) {
   .modal { padding: 0; place-items: end center; }
@@ -926,14 +917,9 @@ body.modal-open { overflow: hidden; }
   .formula, .quotes { grid-template-columns: 1fr; }
   .latam-card { padding: 24px 20px 28px; }
   .latam-open.btn { width: 100%; }
-  .store-map { height: 220px; }
 }
 .latam-card .modal-close { position: absolute; top: 0; right: 0; float: none; }
 .latam-card h2, .latam-card .eyebrow { padding-right: 48px; }
-/* mapa en tono oscuro (OpenStreetMap con filtro) */
-.store-map .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.95) saturate(.35); }
-.store-map .leaflet-control-attribution { background: rgba(0,0,0,.6); color: #bbb; }
-.store-map .leaflet-control-attribution a { color: var(--yellow); }
 
 /* =========================================================
    QUIERO SER DISTRIBUIDOR: Argentina / otro país
@@ -1173,3 +1159,9 @@ body.menu-open .menu-btn i:nth-child(3) { transform: translateY(-6px) rotate(-45
 .packs.formats span { padding: 8px 6px; }
 .packs.formats b { font-size: 16px; }
 .price-row { margin: 12px 0 12px; }
+
+/* botones "Quiero ir físicamente a comprarla": en celular van a lo ancho, uno abajo del otro */
+@media (max-width: 560px) {
+  .ver-ctas, .tech-ctas, .path-ctas { flex-direction: column; align-items: stretch; }
+  .ver-ctas .btn, .tech-ctas .btn, .path-ctas .btn { width: 100%; flex: none; text-align: center; justify-content: center; }
+}

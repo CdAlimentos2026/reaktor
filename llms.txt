@@ -16,7 +16,7 @@ Reaktor es para la gente real que deja todo en la cancha, sea cual sea su cancha
 
 ## Comprar
 - Online en el sitio oficial ("Comprar online"): unidad, pack x6 y pack x12.
-- Puntos de venta en Argentina ("Dónde encontrarla"), empezando por el norte: Jujuy, Salta, Tucumán, Catamarca, La Rioja, Santiago del Estero, Formosa, Chaco, Corrientes y Misiones.
+- En persona: botón "Quiero ir físicamente a comprarla", que abre WhatsApp para consultar el local más cercano.
 
 ## Negocios
 - Comercios de Argentina (kioscos, almacenes, micromercados, gimnasios, bares): precio mayorista, pedido desde el celular y entrega en el local.
